@@ -1,0 +1,156 @@
+{% load static %}
+{% block content %}
+    <link href="{% static 'css/sidebar.css' %}" rel="stylesheet" media="all">
+
+{% if request.user.is_authenticated %}
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+    <!-- Header -->
+    <div class="sidebar-header">
+        <img src="{% static 'images/icon/maanisgrouplogo.jpg' %}" alt="Logo">
+        <span class="brand"> Hello {{ request.user.username }}</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+        <ul>
+            <li>
+                <a href="{% url 'main:index' %}">
+                    <i class="fas fa-desktop"></i><span>Home</span>
+                </a>
+            </li>
+
+            <li class="has-sub">
+                <a href="#">
+                    <i class="fas fa-cogs"></i><span>Masters</span>
+                    <i class="arrow fas fa-chevron-right"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{% url 'main:acc_master' %}">Account Master</a></li>
+                    <li><a href="{% url 'main:brand_create' %}">Brand</a></li>
+                    <li><a href="{% url 'main:vehicle_add' %}">Model</a></li>
+                    <li><a href="{% url 'main:vehicle_type_create' %}">Vehicle Type</a></li>
+                    <li><a href="{% url 'main:vehicle_master_add' %}">Vehicle Master</a></li>
+                    <li><a href="{% url 'main:employee_create' %}">Employee</a></li>
+                    <li><a href="{% url 'main:rate_master' %}">Rate Master</a></li>
+                    <li><a href="{% url 'main:add_unit' %}">Unit Master</a></li>
+                    <li><a href="{% url 'main:add_tax' %}">Tax Master</a></li>
+                    <li><a href="{% url 'main:new_group' %}">Group Master</a></li>
+                    <li><a href="{% url 'main:new_godown' %}">Godown Master</a></li>
+
+                </ul>
+            </li>
+
+            <li class="has-sub">
+                <a href="#">
+                    <i class="fas fa-truck"></i> </i><span>Trip Sheet</span>
+                    <i class="arrow fas fa-chevron-right"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{% url 'main:trip_create' %}">Entry</a></li>
+                    <li><a href="{% url 'main:trip_list' %}">Modify</a></li>
+                    <li><a href="{% url 'main:trip_search_delete' %}">Delete</a></li>
+                </ul>
+            </li>
+
+            <li class="has-sub">
+                <a href="#">
+                    <i class="fas fa-file-alt"></i><span>Billing Entry</span>
+                    <i class="arrow fas fa-chevron-right"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{% url 'main:bill_details' %}">Bill Entry</a></li>
+                    <li><a href="{% url 'main:bill_search' %}">Modify Bill</a></li>
+                    <li><a href="{% url 'main:bill_delete_search' %}">Delete Bill</a></li>
+                </ul>
+            </li>
+<li class="has-sub">
+    <a href="#">
+        <i class="fas fa-calculator"></i><span>Accounts</span>
+        <i class="arrow fas fa-chevron-right"></i>
+    </a>
+    <ul class="submenu">
+        <!-- <li><a href="{% url 'main:trip_create' %}">Entry</a></li> -->
+        <!-- <li><a href="{% url 'main:trip_list' %}">Modify</a></li>
+        <li><a href="{% url 'main:trip_search_delete' %}">Delete</a></li> -->
+
+    </ul>
+</li>
+
+
+<li class="has-sub">
+    <a href="#">
+        <i class="fas fa-industry"></i><span>Company</span>
+        <i class="arrow fas fa-chevron-right"></i>
+    </a>
+    <ul class="submenu">
+        <li><a href="{% url 'main:company_details_master' %}">Company Master</a></li> 
+         <li><a href="{% url 'main:voucher_configuration' %}">Voucher Configuration</a></li>
+
+    </ul>
+</li>
+
+        </ul>
+    </nav>
+
+    <!-- Profile Footer -->
+    <!-- <div class="sidebar-footer"> -->
+        <div class="user">
+            <!-- <img src="{% static 'images/icon/user.png' %}" alt="User">
+            <span class="username">{{ request.user.username }}</span> -->
+        </div>
+        <div class="footer-actions">
+            <!-- <button id="modeSwitch"><i class="fas fa-adjust"></i></button> -->
+            <!-- <a href="{% url 'main:driver_logout' %}" class="logout"> -->
+                <!-- <i class="fas fa-sign-out-alt"></i> -->
+            </a>
+        </div>
+    </div>
+</aside>
+{% endif %}
+
+<!-- CSS -->
+
+
+<!-- JS -->
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Accordion submenu
+  document.querySelectorAll(".has-sub > a").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const parent = link.parentElement;
+      document.querySelectorAll(".has-sub").forEach(li => {
+        if (li !== parent) li.classList.remove("active");
+      });
+      parent.classList.toggle("active");
+    });
+  });
+
+  // Dark mode switch
+  document.getElementById("modeSwitch").addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+  });
+});
+</script> -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  // Function to setup accordion for all nested menus
+  document.querySelectorAll(".has-sub, .has-sub-two").forEach(menu => {
+    const link = menu.querySelector(":scope > a"); // direct child link
+    link.addEventListener("click", e => {
+      e.preventDefault();
+
+      // Toggle the clicked menu
+      menu.classList.toggle("active");
+    });
+  });
+
+});
+</script>
+    
+
+
+
+{% endblock %}

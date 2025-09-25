@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete</title>
+    <!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+
+        }
+         .logo p {
+        color:white;
+        }
+        .container {
+            border: 1px solid rgb(43, 114, 227);
+            padding: 20px;
+            width: 100%;
+            border-radius: 5px;
+            background:antiquewhite;
+            margin-top:80px;
+        }
+        .btn {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+        }
+        table{
+            background:white;
+        }
+        .delete-btn { background-color: #dc3545; }
+        .cancel-btn { background-color: #007bff; }
+        .trip_heading{
+            margin-bottom: 100px;
+        }
+        .trip_date{
+            margin-bottom: 100px;
+        }
+        @media print {
+        .cancel-btn {
+        display: none;
+                }
+        .logo p{
+            display: none;
+        }
+        }
+    </style>
+
+
+<div class="container">
+ {% if trip_sheets %}
+ <h1 style="text-align: center;margin-bottom: 30px;"> {{ company_name }}</h1>
+ <h3 style="text-align: center;margin-bottom: 20px;">Driver wise trip sheet details</h3>
+
+ <h6 style="margin-bottom: 30px;">Driver name:{{driver_name}} </h6>
+        <table border="1" style="font-size: 11px; width: 100%;">
+            <thead>
+                <tr>
+                  
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Vehicle No</th>
+                    <th>Customer</th>
+                    <th>Trip from</th>
+                    <th>Trip to</th>
+                    <th>Total KM</th>
+                    <th>Driver advance</th>
+                    <th>Driver bata</th>
+                    <th>Total Freight</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for sheet in trip_sheets %}
+                <tr>
+                    
+                    <td>{{ sheet.loading_date }}</td>
+                    <td>{{ sheet.unloading_date }}</td>
+                    <td>{{ sheet.vehicle_number_id.registration_number }}</td>
+                    <td>{{ sheet.customer_name.head }}</td>
+                    <td>{{ sheet.loading_point }}</td>
+                    <td>{{ sheet.unloading_point }}</td>
+                    <td>{{ sheet.total_km}}</td>
+                    <td>{{ sheet.advance_driver}}</td>
+                    <td>{{sheet.driver_bata}}</td>
+                    <td>{{sheet.total_freight_charges}}</td>
+                </tr>
+                {% endfor %}
+                <tr >
+                    <td colspan="7" style="text-align: right;">Total:</td>
+                    <td style="background-color: green; color: white;">{{ driver_advance_total }}</td>
+                    <td  style="background-color: green; color: white;">{{ driver_bata_total }}</td>
+                    <td  style="background-color: green; color: white;">{{ total_freight_charges }}</td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="text-align: right;"><strong>Driver Bata:</strong></td> 
+                    <td colspan="2">{{ driver_bata_total }}</td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="text-align: right;"><strong>Bata Balance  :</strong></td> 
+                    <td colspan="2">{{ balance_amount }}</td>
+                </tr>
+               <!-- <tr rowspan="2">
+                   <td colspan="8"  style="text-align: right;">Total Bata:</td> 
+                   <td>{{ driver_bata_total }}</td>
+                </tr>
+                 <tr rowspan="2">
+                   <td colspan="8"  style="text-align: right;">Balance Amount:</td> 
+                   <td>{{ balance_amount}}</td>
+                </tr> -->
+            </tbody>
+           
+        </table>
+    {% else %}
+        <p>No Trip Sheets found for selected date range.</p>
+    {% endif %}
+    <!-- <button type="button" class="btn cancel-btn " onclick="window.print()">Print</button> -->
+    <button onclick="printCustomLayout()" class="btn cancel-btn ">Print</button>
+</div>
+
+
+<div id="print-layout" style="display: none;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h1>{{ company_name }}</h1>
+        <h3>Trip Sheet Report Driver-wise</h3>
+        <h6 style="margin-bottom: 30px; text-align: left;">Driver name:{{driver_name}} </h6>
+    </div>
+    <table border="1" style="width:100%; border-collapse: collapse; text-align: center; font-size: 11px;">
+         <thead>
+                <tr>
+                  
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Vehicle No</th>
+                    <th>Customer</th>
+                    <th>Trip from</th>
+                    <th>Trip to</th>
+                    <th>Total KM</th>
+                    <th>Driver advance</th>
+                    <th>Driver bata</th>
+                    <th>Total Freight</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for sheet in trip_sheets %}
+                <tr>
+                    
+                    <td>{{ sheet.loading_date }}</td>
+                    <td>{{ sheet.unloading_date }}</td>
+                    <td>{{ sheet.vehicle_number_id.registration_number }}</td>
+                    <td>{{ sheet.customer_name.head }}</td>
+                    <td>{{ sheet.loading_point }}</td>
+                    <td>{{ sheet.unloading_point }}</td>
+                    <td>{{ sheet.total_km}}</td>
+                    <td>{{ sheet.advance_driver}}</td>
+                    <td>{{sheet.driver_bata}}</td>
+                    <td>{{sheet.total_freight_charges}}</td>
+                </tr>
+                {% endfor %}
+                <tr >
+                    <td colspan="7" style="text-align: right;">Total:</td>
+                    <td>{{ driver_advance_total }}</td>
+                    <td>{{ driver_bata_total }}</td>
+                    <td>{{ total_freight_charges }}</td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="text-align: right;"><strong>Driver Bata:</strong></td> 
+                    <td colspan="2">{{ driver_bata_total }}</td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="text-align: right;"><strong> Bata Balance  :</strong></td> 
+                    <td colspan="2">{{ balance_amount }}</td>
+                </tr>
+               <!-- <tr rowspan="2">
+                   <td colspan="8"  style="text-align: right;">Total Bata:</td> 
+                   <td>{{ driver_bata_total }}</td>
+                </tr>
+                 <tr rowspan="2">
+                   <td colspan="8"  style="text-align: right;">Balance Amount:</td> 
+                   <td>{{ balance_amount}}</td>
+                </tr> -->
+            </tbody>
+           
+        </table>
+</div>
+<script>
+    function printCustomLayout() {
+        const content = document.getElementById('print-layout').innerHTML;
+    
+        const printWindow = window.open('', '', 'width=800,height=900');
+        printWindow.document.write(`
+            <html>
+            <head>
+                
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                      
+                        padding: 20px;
+                    }
+                    table {
+                        width: 100%;
+                        font-size: 11px;
+                        border-collapse: collapse;
+                        padding: 0px;
+                    }
+                    th, td {
+                        border: 1px solid #000;
+                        padding: 1px;
+                        font-size:9px;
+                        text-align: center;
+                    }
+                    th {
+                        background-color: #f4f4f4;
+                    }
+                    h1 {
+                        margin: 0;
+                        font-size: 24px;
+                    }
+                    h3 {
+                        margin-top: 5px;
+                        font-size: 16px;
+                        font-weight: normal;
+                    }
+                </style>
+            </head>
+            <body onload="window.print(); window.close();">
+                ${content}
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+    }
+    </script>
+    
+<!--</div>-->
+<!--</div>-->
+<!-- Jquery JS-->
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+<!--</body>-->
+
+<!--</html>-->

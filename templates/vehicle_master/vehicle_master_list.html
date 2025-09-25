@@ -1,0 +1,360 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle List</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+
+    <style>
+
+        .action{
+            width:35%;
+            }
+          .logo p {
+        color:white;
+        }
+
+        .container_box{
+            width:60%;
+            border: 2px solid rgb(43, 114, 227);
+            background-color: #f5f5f5;
+            margin-left:20px;
+            margin-top:90px;
+            border-radius: 8px;
+        }
+        .search{
+            margin-left:20px;
+            margin-top:20px;
+        }
+        .search_txt{
+            padding:5px;
+            border:1px solid #92a8d1;
+        }
+        .table-container {
+             max-height: 200px;
+             overflow-y: auto;
+             width: 100%;
+
+        }
+        .cancel_btn{
+            margin-left:20px;
+            margin-bottom:20px;
+            margin-top:20px;
+        }
+        table {
+
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-left:20px;
+
+        }
+        th, td {
+            border: 1px solid black ;
+            padding: 10px;
+            text-align: left;
+            background-color: white;
+            /*min-width:150px;*/
+            white-space: nowrap;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        th:first-child, td:first-child {
+            width: 50px; /* Keep ID column small */
+        }
+        .btn {
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+        }
+        .edit-btn { background-color: #28a745; }
+        .delete-btn { background-color: #dc3545; }
+        .add-btn { background-color: #007bff; padding: 10px; display: inline-block; margin-top: 10px; }
+
+        /* media query*/
+        @media only screen and (max-width:600px) {
+        .container_box{
+            width:90%;
+        }
+        .search_txt{
+            width:70%;
+
+        }
+    }
+    </style>
+<!--</head>-->
+
+<!--<body>-->
+<!--<div class="page-wrapper">-->
+    <!-- HEADER MOBILE-->
+<!--    <header class="header-mobile d-block d-lg-none">-->
+<!--        <div class="header-mobile__bar">-->
+<!--            <div class="container-fluid">-->
+<!--                <div class="header-mobile-inner">-->
+<!--                    <a class="logo" href="index.html">-->
+<!--                        <img src="images/icon/logo.png" alt="CoolAdmin"/>-->
+<!--                    </a>-->
+<!--                    <button class="hamburger hamburger&#45;&#45;slider" type="button">-->
+<!--                            <span class="hamburger-box">-->
+<!--                                <span class="hamburger-inner"></span>-->
+<!--                            </span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <nav class="navbar-mobile">-->
+<!--            <div class="container-fluid">-->
+<!--                <ul class="navbar-mobile__list list-unstyled">-->
+<!--&lt;!&ndash;                    <li class="has-sub">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="js-arrow" href="{% url 'main:index' %}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                     <li class="active has-sub">-->
+<!--                                                <a href="{% url 'main:index' %}">-->
+<!--                                                    <i class="fas fa-tachometer-alt"></i>Home</a>-->
+<!--                                            </li>-->
+
+<!--                    <li class="has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Masters</a>-->
+<!--                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:brand_create' %}">Brand</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:vehicle_add'%}">Model</a>-->
+<!--                            </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_type_create'%}">Vehicle type name</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_master_add'%}">Vehicle  Master</a>-->
+<!--                                </li>-->
+<!--                              <li>-->
+<!--                                <a href="{% url 'main:employee_create'%}">Employee</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                     <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Trip sheet</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_create' %}">Trip sheet entery</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_list'%}">Modify trip sheet</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_search_delete'%}">Delete trip sheet</a>-->
+<!--                            </li>-->
+
+<!--                        </ul>-->
+<!--                    </li>-->
+
+
+<!--                    &lt;!&ndash;                        <li>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            <a href="chart.html">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                <i class="fas fa-chart-bar"></i>Charts</a>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        </li>&ndash;&gt;-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </nav>-->
+<!--    </header>-->
+    <!-- END HEADER MOBILE-->
+    <!-- MENU SIDEBAR-->
+<!--    <aside class="menu-sidebar d-none d-lg-block">-->
+<!--        <div class="logo">-->
+<!--            &lt;!&ndash;                <a href="#">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <img src="images/icon/logo.png" alt="Cool Admin" />&ndash;&gt;-->
+<!--            &lt;!&ndash;                </a>&ndash;&gt;-->
+<!--            <p> LOGIWARE </p>-->
+<!--        </div>-->
+<!--        <div class="menu-sidebar__content js-scrollbar1" style="background-color: #c83200;">-->
+<!--            <nav class="navbar-sidebar">-->
+<!--                <ul class="list-unstyled navbar__list">-->
+<!--&lt;!&ndash;                    <li class="active has-sub">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="js-arrow" href="{% url 'main:index' %}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                     <li class="active has-sub">-->
+<!--                                                <a href="{% url 'main:index' %}">-->
+<!--                                                    <i class="fas fa-tachometer-alt"></i>Home</a>-->
+<!--                                            </li>-->
+<!--                    <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Masters</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:brand_create' %}">Brand</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:vehicle_add'%}">Model</a>-->
+<!--                            </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_type_create'%}">Vehicle type name</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_master_add'%}">Vehicle  Master</a>-->
+<!--                                </li>-->
+<!--                              <li>-->
+<!--                                <a href="{% url 'main:employee_create'%}">Employee</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                     <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Trip sheet</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_create' %}">Trip sheet entery</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_list'%}">Modify trip sheet</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_search_delete'%}">Delete trip sheet</a>-->
+<!--                            </li>-->
+
+<!--                        </ul>-->
+<!--                    </li>-->
+
+<!--                </ul>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--    </aside>-->
+    <!-- END MENU SIDEBAR-->
+    <!-- PAGE CONTAINER-->
+<!--    <div class="page-container">-->
+        <!-- HEADER DESKTOP-->
+<!--        <header class="header-desktop">-->
+<!--            <div class="section__content section__content&#45;&#45;p30">-->
+<!--                <div class="container-fluid">-->
+<!--                    <div class="header-wrap">-->
+
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </header>-->
+        <!-- HEADER DESKTOP-->
+        <!--Main content-->
+<div class="container_box">
+    <form method="GET" action="{% url 'main:vehicle_master_list' %}" class="search">
+        <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Search register number ..."
+               class="search_txt"/>
+        <button type="submit" class="search_btn">Search</button>
+    </form>
+
+<div class="table-container">
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+<!--        <th>RC Owner ID</th>-->
+        <th>RC Owner Name</th>
+        <th>Mobile</th>
+        <th>Brand</th>
+        <th>Vehicle</th>
+        <th>Vehicle Type</th>
+        <th>Fuel Type</th>
+        <th>Registration Number</th>
+        <th>Make Year</th>
+        <th>Chassis Number</th>
+        <th>Engine Number</th>
+        <th>Insurance Renewal</th>
+        <th>Pollution Renewal</th>
+        <th>Driver</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for vehicle_master in vehicle_masters %}
+    <tr>
+        <td>{{ vehicle_master.rc_owner_id }}</td>
+<!--        <td>{{ vehicle_master.rc_owner_id }}</td>-->
+        <td>{{ vehicle_master.rc_owner_name }}</td>
+        <td>{{ vehicle_master.mobile }}</td>
+        <td>{{ vehicle_master.brand_id }}</td>
+        <td>{{ vehicle_master.vehicle_id }}</td>
+        <td>{{ vehicle_master.vehicle_type }}</td>
+        <td>{{ vehicle_master.fuel }}</td>
+        <td>{{ vehicle_master.registration_number }}</td>
+        <td>{{ vehicle_master.make_year }}</td>
+        <td>{{ vehicle_master.chase_number }}</td>
+        <td>{{ vehicle_master.engine_number }}</td>
+        <td>{{ vehicle_master.insurance_renewal }}</td>
+        <td>{{ vehicle_master.pollution_renewal }}</td>
+        <td>{{ vehicle_master.driver }}</td>
+        <td>
+<!--            <a href="{% url 'main:vehicle_master_update' vehicle_master.id %}" class="btn btn-sm btn-warning">Edit</a> |-->
+<!--            <a href="{% url 'main:vehicle_master_delete' vehicle_master.id %}" class="btn btn-sm btn-danger">Delete</a>-->
+             <a href="{% url 'main:vehicle_master_readonly' vehicle_master.id %}" > <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="0 0 576 512"><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/></svg> </a>
+        </td>
+    </tr>
+     {% empty %}
+                    <tr>
+                        <td colspan="13" class="text-center">No Vehicle master available.</td>
+                    </tr>
+    {% endfor %}
+    <tbody>
+</table>
+</div>
+<a href="{% url 'main:vehicle_master_add' %}" class="btn btn-primary cancel_btn">cancel </a>
+</div>
+
+<!--  </div>-->
+<!--</div>-->
+<!-- Jquery JS-->
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+<!--</body>-->
+
+<!--</html>-->

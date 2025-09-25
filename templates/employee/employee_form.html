@@ -1,0 +1,458 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Add or Edit Vehicle{% endblock %}</title>
+<!--</head>-->
+<!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+<style>
+     body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+
+            align-items: center;
+
+        }
+         .logo p {
+        color:white;
+        }
+        .container_box {
+            background:#f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            border: 2px solid rgb(43, 114, 227);
+            margin-left:20px;
+            margin-top:100px;
+        }
+
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+           /* padding: 8px;*/
+            margin-bottom: 15px;
+            border: 1px solid black;
+           /* border-radius: 5px;*/
+            font-size: 14px;
+        }
+        select {
+        padding:3px;
+        background:white;
+
+        }
+
+        button {
+
+            padding: 10px;
+            background: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+        .btn {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+        }
+        .save-btn { background-color: #28a745; }
+        .back-btn { background-color: #007bff; }
+
+    @media only screen and (max-width: 600px) {
+  .container_box  {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+		.employee_name{
+    			margin-bottom: 30px;
+			}
+	}
+    </style>
+
+<!--<body >-->
+<!--<div class="page-wrapper">-->
+    <!-- HEADER MOBILE-->
+<!--    <header class="header-mobile d-block d-lg-none">-->
+<!--        <div class="header-mobile__bar">-->
+<!--            <div class="container-fluid">-->
+<!--                <div class="header-mobile-inner">-->
+<!--                    <a class="logo" href="#">LOGIWARE-->
+<!--&lt;!&ndash;                        <img src="images/icon/logo.png" alt="CoolAdmin"/>&ndash;&gt;-->
+<!--                    </a>-->
+<!--                    <button class="hamburger hamburger&#45;&#45;slider" type="button">-->
+<!--                            <span class="hamburger-box">-->
+<!--                                <span class="hamburger-inner"></span>-->
+<!--                            </span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <nav class="navbar-mobile">-->
+<!--            <div class="container-fluid">-->
+<!--                <ul class="navbar-mobile__list list-unstyled">-->
+<!--&lt;!&ndash;                    <li class="has-sub">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="js-arrow" href="{% url 'main:index' %}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                     <li class="active has-sub">-->
+<!--                                                <a href="{% url 'main:index' %}">-->
+<!--                                                    <i class="fas fa-tachometer-alt"></i>Home</a>-->
+<!--                                            </li>-->
+
+<!--                    <li class="has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Masters</a>-->
+<!--                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:brand_create' %}">Brand</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:vehicle_add'%}">Model</a>-->
+<!--                            </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_type_create'%}">Vehicle type name</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_master_add'%}">Vehicle  Master</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:employee_create'%}">Employee</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                     <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Trip sheet</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_create' %}">Trip sheet entery</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_list'%}">Modify trip sheet</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_search_delete'%}">Delete trip sheet</a>-->
+<!--                            </li>-->
+
+<!--                        </ul>-->
+<!--                    </li>-->
+
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </nav>-->
+<!--    </header>-->
+    <!-- END HEADER MOBILE-->
+
+    <!-- MENU SIDEBAR-->
+<!--    <aside class="menu-sidebar d-none d-lg-block">-->
+<!--        <div class="logo">-->
+<!--            &lt;!&ndash;                <a href="#">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <img src="images/icon/logo.png" alt="Cool Admin" />&ndash;&gt;-->
+<!--            &lt;!&ndash;                </a>&ndash;&gt;-->
+<!--            <p> LOGIWARE </p>-->
+<!--        </div>-->
+<!--        <div class="menu-sidebar__content js-scrollbar1" style="background-color: #c83200;">-->
+<!--            <nav class="navbar-sidebar">-->
+<!--                <ul class="list-unstyled navbar__list">-->
+<!--&lt;!&ndash;                    <li class="active has-sub">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="js-arrow" href="{% url 'main:index' %}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                     <li class="active has-sub">-->
+<!--                                                <a href="{% url 'main:index' %}">-->
+<!--                                                    <i class="fas fa-tachometer-alt"></i>Home</a>-->
+<!--                                            </li>-->
+<!--                    <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Masters</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:brand_create' %}">Brand</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:vehicle_add'%}">Model</a>-->
+<!--                            </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_type_create'%}">Vehicle type name</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_master_add'%}">Vehicle  Master</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:employee_create'%}">Employee</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                     <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Trip sheet</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_create' %}">Trip sheet entery</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_list'%}">Modify trip sheet</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_search_delete'%}">Delete trip sheet</a>-->
+<!--                            </li>-->
+
+<!--                        </ul>-->
+<!--                    </li>-->
+
+
+
+<!--                </ul>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--    </aside>-->
+    <!-- END MENU SIDEBAR-->
+
+    <!-- PAGE CONTAINER-->
+<!--    <div class="page-container">-->
+        <!-- HEADER DESKTOP-->
+<!--        <header class="header-desktop">-->
+<!--            <div class="section__content section__content&#45;&#45;p30">-->
+<!--                <div class="container-fluid">-->
+<!--                    <div class="header-wrap">-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </header>-->
+        <!-- HEADER DESKTOP-->
+
+        <!--Main content-->
+ <div class="container_box">
+<!--<h2>{% if vehicle %}Update{% else %}Add{% endif %} Vehicle</h2>-->
+             <div class="container">
+<!--                 <div class="row">-->
+
+
+             {% if messages %}
+    <script>
+        window.onload = function() {
+            {% for message in messages %}
+                alert("{{ message }}");
+            {% endfor %}
+        }
+    </script>
+            {% endif %}
+<form method="post">
+        {% csrf_token %}
+<div class="row">
+        <div class="col-4">
+        <label>Employee ID</label>
+        <input type="text" name="employee_id" value="{{ employee.employee_custom_id}}" readonly><br>
+        </div>
+        <div class="col-8">
+        <label class="employee_name">Employee Name</label>
+        <input type="text" name="employee_name" value="{{ employee.employee_name|default:'' }}" required><br>
+        </div>
+        <div class="col-6">
+        <label>Address 1</label>
+        <input type="text" name="address_1" value="{{ employee.address_1|default:'' }}" required><br>
+        </div>
+        <div class="col-6">
+        <label>Address 2</label>
+        <input type="text" name="address_2" value="{{ employee.address_2|default:'' }}"><br>
+        </div>
+        <div class="col-6">
+        <label>Address 3</label>
+        <input type="text" name="address_3" value="{{ employee.address_3|default:'' }}"><br>
+        </div>
+        <div class="col-6">
+        <label>Telephone</label>
+        <input type="text" name="telephone" value="{{ employee.telephone|default:'' }}"><br>
+        </div>
+        <div class="col-6">
+        <label>Mobile</label>
+        <input type="text" name="mobile" value="{{ employee.mobile|default:'' }}"><br>
+        </div>
+        <div class="col-6">
+        <label>Working Status</label>
+        <select name="working_status">
+            <option value="YES" {% if employee.working_status == 'YES' %}selected{% endif %}>YES</option>
+            <option value="NO" {% if employee.working_status == 'NO' %}selected{% endif %}>NO</option>
+        </select><br>
+        </div>
+     <!--   <div class="col-2"></div> -->
+<!--        <div class="col-6">-->
+<!--        <label>Date of Birth</label>-->
+<!--        <input type="date" name="dob" value="{{ employee.dob|date:'Y-m-d'}}" required><br>-->
+<!--        </div>-->
+<!--        <div class="col-6">-->
+<!--        <label>Designation</label>-->
+<!--        <input type="text" name="designation" value="{{ employee.designation|default:'' }}" required><br>-->
+<!--        </div>-->
+<!--        <div class="col-6">-->
+<!--        <label>Department</label>-->
+<!--        <input type="text" name="department" value="{{ employee.department|default:'' }}" required><br>-->
+<!--        </div>-->
+    <div class="col-6">
+    <label>Designation</label>
+    <input list="designations_list" id="designation_input" name="designation"
+            style=" border: 1px solid black;" value="{{ employee.designation|default:'' }}">
+
+    <datalist id="designations_list">
+        {% for desig in existing_designations %}
+            <option value="{{ desig }}">{{ employee.designation }}</option>
+        {% endfor %}
+    </datalist>
+</div>
+<div class="col-6">
+    <label>Department</label>
+
+    <!-- Searchable and editable input field -->
+    <input list="departments_list" id="department_input" name="department" style=" border: 1px solid black;" value="{{ employee.department|default:'' }}" required>
+
+    <!-- Datalist for dropdown options -->
+    <datalist id="departments_list">
+        {% for dept in existing_departments %}
+            <option value="{{ dept }}"></option>
+        {% endfor %}
+    </datalist>
+</div>
+
+        <div class="col-6">
+        <label>Salary</label>
+        <input type="number" step="0.01" name="salary" value="{{ employee.salary|default:'0.00' }}" required><br>
+        </div>
+        <div class="col-3">
+        <label>ESI</label>
+        <input type="number" step="0.01" name="esi" value="{{ employee.esi|default:'0.00' }}" required><br>
+        </div>
+    <div class="col-3"></div>
+        <div class="col-3">
+        <label>PF</label>
+        <input type="number" step="0.01" name="pf" value="{{ employee.pf|default:'0.00' }}" required><br>
+        </div>
+     <div class="col-3"></div>
+        <div class="col-6">
+        <label>Date of Joining</label>
+        <input type="date" name="date_joining" value="{{ employee.date_joining|date:'Y-m-d' }}" required><br>
+        </div>
+</div>
+<div class="row">
+        <div class="col-12">
+                <h4>Bank details</h4>
+        </div>
+                <div class="col-6">
+        <label>Bank Name</label>
+        <input type="text" name="bank_name" value="{{ employee.bank_name|default:'' }}" ><br>
+                </div>
+                <div class="col-6">
+        <label>Branch</label>
+        <input type="text" name="branch" value="{{ employee.branch|default:'' }}" ><br>
+                </div>
+                <div class="col-6">
+        <label>IFSC Code</label>
+        <input type="text" name="ifsc_code" value="{{ employee.ifsc_code|default:'' }}" ><br>
+                </div>
+                <div class="col-6">
+        <label>Casual Leaves</label>
+        <input type="number" name="casual_leaves" value="{{ employee.casual_leaves|default:'' }}" required><br>
+                </div>
+</div>
+        <button type="submit" class="btn back-btn">Save</button>
+        <a href="{% url 'main:index' %}" class="btn back-btn">Back</a>
+        <a href="{% url 'main:employee_list' %}" class="btn back-btn">Employee list</a>
+    </form>
+ </div>
+</div>
+
+<!-- </div>-->
+<!--</div>-->
+<!--department toggle-->
+<script>
+    function handleDepartmentChange(selectElement) {
+        var inputField = document.getElementById("department_input");
+
+        if (selectElement.value === "other" || selectElement.value === "") {
+            inputField.style.display = "block";  // Show input for new department
+            inputField.required = true;
+            inputField.value = "";  // Clear input
+        } else {
+            inputField.style.display = "none";  // Hide input
+            inputField.required = false;
+            inputField.value = selectElement.value;  // Set dropdown value in input field
+        }
+    }
+</script>
+<!-- Jquery JS-->
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+<!--</body>-->
+
+<!--</html>-->

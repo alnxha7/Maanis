@@ -1,0 +1,113 @@
+
+:root {
+  --sidebar-bg: rgba(15, 25, 80, 0.95);
+  --accent: linear-gradient(135deg, #00c6ff, #0072ff);
+  --text: #fff;
+}
+body.dark {
+  --sidebar-bg: rgba(20,20,30,0.95);
+  --accent: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  --text: #eee;
+}
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #f4f7fa;
+  transition: background 0.3s;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;   /* always full width */
+  height: 100vh;
+  background: #010867;
+  color: var(--text);
+  position: fixed;
+  top: 0; left: 0;
+  overflow-y: auto;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-top: 75px;
+}
+.sidebar-header img {
+  width: 45px; height: 45px;
+  border-radius: 50%;
+}
+.sidebar-header .brand {
+  margin-left: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Nav */
+.sidebar-nav ul {list-style: none; margin: 0; padding: 0;}
+.sidebar-nav li {position: relative;}
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  color: white;
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: all 0.3s;
+}
+.sidebar-nav a i {margin-right: 12px; min-width: 20px;}
+.sidebar-nav a span {opacity: 1;} /* always visible */
+.sidebar-nav a:hover {
+  background: rgba(255,255,255,0.1);
+}
+.sidebar-nav a.active {
+  background: rgba(255,255,255,0.15);
+  border-left: 4px solid transparent;
+  border-image: var(--accent) 1;
+  border-image-slice: 1;
+}
+
+/* Submenu */
+.submenu {
+  display: none;
+  background: rgba(255,255,255,0.05);
+}
+.submenu a {padding-left: 50px; font-size: 14px; color: #ddd;}
+.submenu a:hover {background: rgba(255,255,255,0.15);}
+.has-sub.active .submenu {display: block;}
+.arrow {margin-left: auto; transition: transform 0.3s;}
+.has-sub.active .arrow {transform: rotate(90deg);}
+
+/* Footer */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 10px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar-footer .user {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+.sidebar-footer .user img {
+  width: 35px; height: 35px;
+  border-radius: 50%;
+}
+.sidebar-footer .username {
+  margin-left: 10px;
+  font-size: 14px;
+}
+.footer-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.footer-actions button, .footer-actions a {
+  background: none; border: none; color: white;
+  cursor: pointer; font-size: 18px;
+}

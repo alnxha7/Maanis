@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GODOWN MASTER</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+    <style>
+        .custom-form {
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 15px;
+    font-family: Arial, sans-serif;
+    background-color: #faebd7;
+    margin-top: 95px;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-label {
+    width: 30%;
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-input {
+    width: 65%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+.form-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-actions .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 8px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+    </style>
+
+<div class="main_content">
+<form method="post" class="custom-form">
+    <h2 class="form-title">Add New Godown</h2>
+    {% csrf_token %}
+
+    <div class="form-row">
+        <label for="godown" class="form-label">Godown Name:</label>
+        <input type="text" name="godown" id="godown" class="form-input" required>
+    </div>
+
+    <div class="form-actions">
+        <a href="{% url 'main:index' %}" class="btn btn-secondary">Back</a>
+        <a href="{% url 'main:godown_list' %}" class="btn btn-info">Search</a>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+</form>
+
+{% if error %}
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ error }}',
+        confirmButtonColor: '#d33'
+    });
+</script>
+{% elif success %}
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Godown Created Successfully',
+        confirmButtonText: 'OK',
+    });
+</script>
+{% endif %}
+</div>
+
+  </div>
+</div>
+<!-- Jquery JS-->
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

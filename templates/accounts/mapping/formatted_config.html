@@ -1,0 +1,409 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Report</title>
+<!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    @media print {
+        body {
+            width: 210mm;
+            height: 297mm;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            width: 100%;
+        }
+        #print-button {
+            display: none;
+        }
+    }
+        .form-control {
+        padding: 2px 8px;
+        font-size: 14px;
+    }
+    .mb-3, .mb-2 {
+        margin-bottom: 8px !important;
+        align-items: center;
+    }
+     body {
+            font-family: Public Sans, sans-serif;
+            background-color: #f4f4f4;
+
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            align-items: center;
+            color:black;
+
+        }
+         .logo p {
+        color:white;
+        }
+        .container_box {
+            background-color:antiquewhite;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgb(43, 114, 227);
+            margin-left:20px;
+            margin-top:100px;
+        }
+
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+
+            margin-bottom: 5px;
+        }
+
+        
+        input, select {
+            width: 100%;
+           /* padding: 8px;*/
+            /*border-radius: 5px;*/
+            font-size: 10px;
+        }
+        select {
+        background:white;
+        
+
+        }
+        table {
+            background:white;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom:20px;
+        }
+        .table_input{
+            border:none;
+        }
+        th {
+            border: 1px solid black;
+            background:#f2f2f2;
+            padding:5px;
+            text-align: center;
+            font-size: 12px;
+        }
+        button {
+            padding: 10px;
+            background: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+        .btn {
+            margin-top: -10px;
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+            margin-right:10px;
+            margin-bottom:20px;
+        }
+
+        .btn-info{
+            margin-top: -25px;
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+            margin-right:10px;
+            margin-bottom:-15px; 
+        }
+
+        .save-btn { background-color: #28a745; }
+        .back-btn { background-color: #007bff; }
+
+        .input-right {
+            text-align: right;
+        }
+    @media only screen and (max-width: 600px) {
+  .container_box  {
+    width: 90%;
+  }
+}
+    label {
+        font-weight: 500;
+        width: 90px;
+        font-size: 12px;
+    }
+    .form-group-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .form-group-row label {
+        min-width: 120px;
+        margin-right: 8px;
+        margin-bottom: 0;
+    }
+    /* .table-container {
+            margin-top: 20px;
+            overflow-x: auto;
+        } */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th {
+            border: 1px solid #999;
+            padding: 2px;
+            text-align: center;
+        }
+        td {
+            border: 1px solid #999;
+            padding: -4px;
+            text-align: center;
+            font-size: 11px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="text"], input[type="number"] {
+            /* width: 100%; */
+            padding: -5px;
+            box-sizing: border-box;
+        }
+        .btn-delete {
+            color: white;
+            border: none;
+            padding: 0px 5px;
+            cursor: pointer;
+        }
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+        .table_data {
+            font-size: 12px;
+            padding: 2px 4px;
+            text-align: center;
+            width: 70px; /* set a fixed width */
+            max-width: 80px; /* prevent stretching */
+            box-sizing: border-box;
+        }
+    .top-section {
+        width: 210%;
+        padding-left: 20px;
+        padding-right: 340px;
+    }
+
+
+
+    .bottom-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.column {
+    padding: 2px;
+    border-radius: 6px;
+   /* box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);*/
+}
+
+/* Widths to control layout */
+/* .first-column {
+    flex: 1; 
+} */
+
+.second-column {
+    flex: 0.5; /* Center - less space */
+    text-align: center;
+}
+
+.third-column {
+    padding-left: 10px;
+}
+
+/* Optional: Ensure inputs are consistent */
+.column input {
+    width: 100%;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+/* Make labels a little smaller for alignment */
+.column label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+.d-flex.align-items-center {
+    gap: 4px; /* Reduce space between label and input */
+}
+
+.d-flex.align-items-center > div {
+    margin-bottom: 0;
+    flex: 0 0 auto; /* Prevent stretching */
+    padding-right: 4px; /* Small spacing */
+}
+
+.d-flex.align-items-center label {
+    margin-bottom: 0;
+    font-size: 12px; /* Optional: reduce font size */
+    white-space: nowrap; /* Keep label on one line */
+}
+
+.d-flex.align-items-center input {
+    flex: 1; /* Let input take remaining space */
+    max-width: 150px; 
+    font-size: 13px;
+}
+
+
+/* ------------------------ INVOICE ------------------ */
+.print-only {
+    display: none;
+}
+
+/* Show only in print */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .print-only, .print-only * {
+        visibility: visible;
+        display: block !important;
+    }
+
+    .print-only {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    table {
+        font-size: 10px;
+    }
+
+    th, td {
+        padding: 1px;
+    }
+
+    th {
+        white-space: nowrap;
+    }
+}
+    </style>
+        
+        <div class="container_box">
+       
+        <div class="container">
+
+<h2>Formatted Config</h2>
+    <div class="container">
+        <!-- 🔹 Table Section -->
+        <div class="table-container">
+            <table id="billTable" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">Sl No: </th>
+                        <th style="text-align: center;">PK</th>
+                        <th style="text-align: center;">iFormId</th>
+                        <th style="text-align: center;">Form Name</th>
+                        <th style="text-align: center;">vConfiq Value</th>
+                        <th style="text-align: center;">vDBField</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- --------------------------- SALES ----------------------------- -->
+                    {% if datas %}
+                        {% for data in datas %}
+                                <tr>
+                                    <td style="text-align: center;">{{ forloop.counter }}</td>
+                                    <td style="text-align: center;">{{ data.id }}</td>
+                                    <td style="text-align: center;">{{ data.iform_id }}</td>
+                                    <td style="text-align: center;">{{ data.form_name}}</td>
+                                    <td style="text-align: center;">{{ data.vconfiq_value }}</td>
+                                    <td style="text-align: center;"> {{ data.vdb_field }} </td>
+                                </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="12" style="text-align: center;">No Records found please try again</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="bottom-section">
+        <div class="col-sm-12 text-end">
+            <a href="{% url 'main:index' %}" id="" class="btn btn-danger btn-sm">Exit</a>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+ </div>
+</div>
+
+
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

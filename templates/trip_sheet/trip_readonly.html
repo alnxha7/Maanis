@@ -1,0 +1,754 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Add or Edit Vehicle{% endblock %}</title>
+<!--</head>-->
+<!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+<style>
+     body {
+            font-family: Public Sans, sans-serif;
+            background-color: #f4f4f4;
+
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            /*font-weight: 100;*/
+            align-items: center;
+            color:black;
+
+        }
+         .logo p {
+        color:white;
+        }
+        .container_box {
+            /*background:#f5f5f5;*/
+            background-color:antiquewhite;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /*width: 50%;*/
+            border: 2px solid rgb(43, 114, 227);
+            margin-left:20px;
+            margin-top:100px;
+        }
+
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+
+            margin-bottom: 5px;
+            /*font-weight: bold;*/
+        }
+
+        input, select {
+            width: 100%;
+           /* padding: 8px;*/
+            margin-bottom: 10px;
+            border: 1px solid black;
+            /*border-radius: 5px;*/
+            font-size: 14px;
+        }
+        select {
+        padding:3px;
+        background:white;
+
+        }
+        table {
+            background:white;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom:20px;
+        }
+        .table_input{
+            border:none;
+        }
+        th {
+            border: 1px solid black;
+            background:#f2f2f2;
+            padding:5px;
+            text-align: center;
+        }
+        td {
+           border: 1px solid black;
+           background:white;
+        }
+        button {
+
+            padding: 10px;
+            background: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+        .btn {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+            margin-right:10px;
+            margin-bottom:20px;
+        }
+        .save-btn { background-color: #28a745; }
+        .back-btn { background-color: #007bff; }
+
+        .input-right {
+            text-align: right;
+        }
+    @media only screen and (max-width: 600px) {
+  .container_box  {
+    width: 90%;
+  }
+}
+    </style>
+
+<!--<body >-->
+<!--<div class="page-wrapper">-->
+    <!-- HEADER MOBILE-->
+<!--    <header class="header-mobile d-block d-lg-none">-->
+<!--        <div class="header-mobile__bar">-->
+<!--            <div class="container-fluid">-->
+<!--                <div class="header-mobile-inner">-->
+<!--                    <a class="logo" href="#">LOGIWARE-->
+<!--&lt;!&ndash;                        <img src="images/icon/logo.png" alt="CoolAdmin"/>&ndash;&gt;-->
+<!--                    </a>-->
+<!--                    <button class="hamburger hamburger&#45;&#45;slider" type="button">-->
+<!--                            <span class="hamburger-box">-->
+<!--                                <span class="hamburger-inner"></span>-->
+<!--                            </span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <nav class="navbar-mobile">-->
+<!--            <div class="container-fluid">-->
+<!--                <ul class="navbar-mobile__list list-unstyled">-->
+<!--&lt;!&ndash;                    <li class="has-sub">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="js-arrow" href="{% url 'main:index' %}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                     <li class="active has-sub">-->
+<!--                                                <a href="{% url 'main:index' %}">-->
+<!--                                                    <i class="fas fa-tachometer-alt"></i>Home</a>-->
+<!--                                            </li>-->
+
+<!--                    <li class="has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Masters</a>-->
+<!--                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:brand_create' %}">Brand</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:vehicle_add'%}">Model</a>-->
+<!--                            </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_type_create'%}">Vehicle type name</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_master_add'%}">Vehicle  Master</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:employee_create'%}">Employee</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                     <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Trip sheet</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_create' %}">Trip sheet entery</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_list'%}">Modify trip sheet</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_search_delete'%}">Delete trip sheet</a>-->
+<!--                            </li>-->
+
+<!--                        </ul>-->
+<!--                    </li>-->
+
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </nav>-->
+<!--    </header>-->
+    <!-- END HEADER MOBILE-->
+
+    <!-- MENU SIDEBAR-->
+<!--    <aside class="menu-sidebar d-none d-lg-block">-->
+<!--        <div class="logo">-->
+<!--            &lt;!&ndash;                <a href="#">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <img src="images/icon/logo.png" alt="Cool Admin" />&ndash;&gt;-->
+<!--            &lt;!&ndash;                </a>&ndash;&gt;-->
+<!--            <p> LOGIWARE </p>-->
+<!--        </div>-->
+<!--        <div class="menu-sidebar__content js-scrollbar1" style="background-color: #c83200;">-->
+<!--            <nav class="navbar-sidebar">-->
+<!--                <ul class="list-unstyled navbar__list">-->
+<!--&lt;!&ndash;                    <li class="active has-sub">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="js-arrow" href="{% url 'main:index' %}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                     <li class="active has-sub">-->
+<!--                                                <a href="{% url 'main:index' %}">-->
+<!--                                                    <i class="fas fa-tachometer-alt"></i>Home</a>-->
+<!--                                            </li>-->
+<!--                    <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Masters</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:brand_create' %}">Brand</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:vehicle_add'%}">Model</a>-->
+<!--                            </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_type_create'%}">Vehicle type name</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_master_add'%}">Vehicle  Master</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:employee_create'%}">Employee</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                     <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Trip sheet</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_create' %}">Trip sheet entery</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_list'%}">Modify trip sheet</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_search_delete'%}">Delete trip sheet</a>-->
+<!--                            </li>-->
+
+<!--                        </ul>-->
+<!--                    </li>-->
+
+
+
+<!--                </ul>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--    </aside>-->
+    <!-- END MENU SIDEBAR-->
+
+    <!-- PAGE CONTAINER-->
+<!--    <div class="page-container">-->
+        <!-- HEADER DESKTOP-->
+<!--        <header class="header-desktop">-->
+<!--            <div class="section__content section__content&#45;&#45;p30">-->
+<!--                <div class="container-fluid">-->
+<!--                    <div class="header-wrap">-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </header>-->
+        <!-- HEADER DESKTOP-->
+
+        <!--Main content-->
+ <div class="container_box">
+
+ <div class="container">
+
+
+<h2>Trip sheet</h2>
+    {% if messages %}
+    <script>
+        window.onload = function() {
+            {% for message in messages %}
+                alert("{{ message }}");
+            {% endfor %}
+        }
+    </script>
+    {% endif %}
+
+<form method="post">
+        {% csrf_token %}
+        <div class="container">
+    <div class="row">
+         <div class=" col-md-3 col-6 ">
+        <label>Series</label>
+        <input type="text" name="series" value="{{ first_trip.series|default_if_none:'' }}" required readonly><br>
+         </div>
+         <div class="col-md-2 col-6">
+        <label>Order Number</label>
+        <input type="text" name="entry_number" value="{{ first_trip.entry_number|default_if_none:'' }}" required readonly><br>
+         </div>
+        <div class="col-md-3 col-6">
+        <label>Driver Name</label>
+        <select name="driver_name" disabled>
+            <option value="">Select Driver</option>
+            {% for driver in drivers %}
+                <option value="{{ driver.id }}" {% if first_trip.driver_name_id_id == driver.id %}selected{% endif %}>
+                    {{ driver.employee_name }}
+                </option>
+            {% endfor %}
+        </select><br>
+         </div>
+        <div class="col-md-1 "></div>
+        <div class="col-md-3 col-6">
+        <label>Vehicle Number</label>
+        <select name="vehicle_number" disabled>
+            <option value="">Select Vehicle</option>
+            {% for vehicle in vehicles %}
+                <option value="{{ vehicle.id }}" {% if first_trip.vehicle_number_id.id == vehicle.id %}selected{% endif %}>
+                    {{ vehicle.registration_number }}
+                </option>
+            {% endfor %}
+        </select><br>
+         </div>
+         <div class="col-md-3 col-6">
+        <label>Vehicle Type</label>
+        <select name="vehicle_type_id" disabled>
+            <option value="">Select Type</option>
+            {% for type in vehicle_types %}
+                <option value="{{ type.id }}" {% if first_trip.vehicle_type_id_id == type.id %}selected{% endif %}>
+                    {{ type.vehicle_name }}
+                </option>
+            {% endfor %}
+        </select><br>
+         </div>
+
+
+        <div class="col-md-2 col-6">
+        <label>Loading Date</label>
+        <input type="date" name="loading_date" id="loading_date" value="{{ first_trip.loading_date|date:'Y-m-d' }}" required readonly><br>
+         </div>
+
+        <div class="col-md-2 col-6">
+        <label>Unloading Date</label>
+        <input type="date" name="unloading_date" id="unloading_date" value="{{ first_trip.unloading_date|date:'Y-m-d' }}" required readonly><br>
+         </div>
+    </div>
+
+    <div class="table-responsive">
+
+            <table id="tripTable">
+                <thead>
+                <tr>
+                    <th>Sl.no</th>
+                    <th>Customer Name</th>
+                    <th>Loading Point</th>
+                    <th>Unloading Point</th>
+                    <th>Product</th>
+                    <th>Remarks</th>
+                    <th>action</th>
+
+                </tr>
+                </thead>
+                <tbody>
+            {% if is_update %}
+                {% for trip in trips %}
+                <tr ondblclick="addRow()">
+                    <td style="width:4%;">
+                        <input type="text" class="table_input" name="sl_no[]" value="{{ trip.sl_no|default:next_sl_no }}" readonly>
+                    </td>
+                    <td>
+<!--                        <input type="text" class="table_input" name="customer_name[]" value="{{ trip.customer_name|default_if_none:'' }}" readonly>-->
+                         <select name="customer_name[]" class="table_input" disabled>
+                             <option value="">Select Customer</option>
+                                {% for customer in customers %}
+                                 <option value="{{ customer.id }}" {% if trip.customer_name_id == customer.id %}selected{% endif %}>
+                                {{ customer.head }}
+                             </option>
+                                {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="table_input" name="loading_point[]" value="{{ trip.loading_point|default_if_none:'' }}" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="table_input" name="unloading_point[]" value="{{ trip.unloading_point|default_if_none:'' }}" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="table_input" name="product[]" value="{{ trip.product|default_if_none:'' }}" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="table_input" name="remark[]" value="{{ trip.remark|default_if_none:'' }}" readonly>
+                    </td>
+                    <td>
+                         <button type="button"  onclick="removeRow(this)" style="background-color:white;padding:0px;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 448 512">
+            <path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.7 23.7 0 0 0 -21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0 -16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/>
+        </svg>
+                         </button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                <td colspan="7">No trips found.</td>
+                </tr>
+                {% endfor %}
+
+        {% else %}
+                <!-- Show an empty input row in create mode -->
+                <tr ondblclick="addRow()">
+                    <td style="width:4%;"><input type="text" class="table_input" name="sl_no[]" value="{{ next_sl_no }}" readonly></td>
+                    <td><input type="text" class="table_input" name="customer_name[]" value="" readonly></td>
+                    <td><input type="text" class="table_input" name="loading_point[]" value="" readonly></td>
+                    <td><input type="text" class="table_input" name="unloading_point[]" value="" readonly></td>
+                    <td><input type="text" class="table_input" name="product[]" value="" readonly></td>
+                    <td><input type="text" class="table_input" name="remark[]" value="" readonly></td>
+                    <td>
+                        <button type="button" onclick="removeRow(this)" style="background-color:white;padding:0px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 448 512">
+                                <path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.7 23.7 0 0 0 -21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0 -16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/>
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+        {% endif %}
+                </tbody>
+            </table>
+<!--                <button type="button" class="btn btn-primary" onclick="addRow()">Add Row</button>-->
+
+    </div>
+        </div>
+<!--<div class="container">-->
+<div class="row">
+    <div class="col-md-4">
+        <div class="row">
+              	&nbsp;&nbsp;&nbsp;
+        <div class="col-md-5 col-12">
+        <label>Starting KM</label>
+        <input type="number" readonly id="start_km" class="input-right" name="starting_km" value="{{ first_trip.starting_km|default_if_none:'' }}" step="0.1" ><br>
+        </div>
+                <div class="col-md-1"></div>
+                &nbsp;&nbsp;
+        <div class="col-md-5 col-12">
+        <label>Ending KM</label>
+        <input type="number" readonly id="end_km" class="input-right" name="ending_km" value="{{ first_trip.ending_km|default_if_none:'' }}" step="0.1"><br>
+        </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="col-md-5 col-12">
+        <label>KM Rate</label>
+        <input type="number" readonly id="km_rate" class="input-right" name="km_rate" value="{{ first_trip.km_rate|default_if_none:'' }}" step="0.1"><br>
+        </div>
+                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        <div class="col-md-5 col-12">
+        <label>Filling KM</label>
+        <input type="number" readonly class="input-right" name="filling_km" value="{{ first_trip.filling_km|default_if_none:'' }}" step="0.1"><br>
+        </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="col-md-11 col-12">
+        <label>Payment By</label>
+            <select name="payment_by" disabled>
+                <option value="">Select Payment Mode</option>
+                <option value="CASH" {% if first_trip.payment_by == "CASH" %}selected{% endif %}>CASH</option>
+                <option value="CREDIT" {% if first_trip.payment_by == "CREDIT" %}selected{% endif %}>CREDIT</option>
+                <option value="GOOGLE PAY" {% if first_trip.payment_by == "GOOGLE PAY" %}selected{% endif %}>GOOGLE PAY</option>
+                <option value="CARD" {% if first_trip.payment_by == "CARD" %}selected{% endif %}>CARD</option>
+            </select><br>
+        </div>
+        </div>
+    </div>
+</div>
+<!--</div>-->
+<!--         <div class="col-md-12">-->
+        <div class="row">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h4>Expense details</h4>
+        </div>
+<!--        </div>-->
+<!--<div class="container-fluid">-->
+<div class="row">
+    <div class="col-md-4">
+
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Tyre Work</label>
+                </div>
+                <input type="number" readonly class="input-right" name="tyre_work" value="{{ first_trip.tyre_work|default_if_none:'' }}" step="0.1">
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Battery</label>
+                </div>
+                <input type="number" readonly class="input-right" name="battery" value="{{ first_trip.battery|default_if_none:'' }}" step="0.1">
+            </div>
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Mechanical/ Electrical</label>
+                </div>
+                <input type="number" readonly class="input-right" name="mech_electric" value="{{ first_trip.mech_electric|default_if_none:'' }}" step="0.1">
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Statutory Charge</label>
+                </div>
+                <input type="number" readonly class="input-right" name="statutory_charge" value="{{ first_trip.statutory_charge|default_if_none:'' }}" step="0.1">
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-7 col-8">
+                <label class="me-2">Statutory Narration</label>
+                </div>
+                <input type="text" readonly name="statutory_narration" value="{{ first_trip.statutory_narration|default_if_none:'' }}">
+            </div>
+    </div>
+
+    <div class="col-md-4" >
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Total KMs Done</label>
+                </div>
+                <input id="total_km" readonly type="number" class="input-right" name="total_km" value="{{ first_trip.total_km|default_if_none:'' }}" step="0.1">
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">KM Charge Total</label>
+                </div>
+                <input type="number" readonly id="km_charge_total" class="input-right" name="km_charge_total" value="{{ first_trip.km_charge_total|default_if_none:'' }}" step="0.1">
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Extra Hour Charge </label>
+                </div>
+                <input type="number" readonly id="extra_hour_charge_total" class="input-right" name="extra_hour_charge_total" value="{{ first_trip.extra_hour_charge_total|default_if_none:'' }}" step="0.1">
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Fixed Charge Total</label>
+                </div>
+                <input type="number" readonly id="fixed_charge_total" class="input-right" name="fixed_charge_total" value="{{ first_trip.fixed_charge_total|default_if_none:'' }}" step="0.1" required>
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Haulting Charge Total</label>
+                </div>
+                <input type="number" readonly id="haulting_charge_total" class="input-right" name="haulting_charge_total" value="{{ first_trip.haulting_charge_total|default_if_none:'' }}" step="0.1">
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Toll/Parking Total</label>
+                </div>
+                <input type="number" readonly id="toll_parking_total" class="input-right" name="toll_parking_total" value="{{ first_trip.toll_parking_total|default_if_none:'' }}" step="0.1">
+            </div>
+    </div>
+
+    <div class="col-md-4" >
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Diesel LTR</label>
+                </div>
+                <input type="number" readonly name="diesel_ltr" class="input-right" value="{{ first_trip.diesel_ltr|default_if_none:'' }}" step="0.1">
+                &nbsp;&nbsp;
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Diesel Charges</label>
+                </div>
+                <input type="number" readonly name="diesel_charges" class="input-right" value="{{ first_trip.diesel_charges|default_if_none:'' }}" step="0.1">
+                &nbsp;&nbsp;
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Advance to Driver</label>
+                </div>
+                <input type="number" readonly name="advance_driver" class="input-right" value="{{ first_trip.advance_driver|default_if_none:'' }}" step="0.1">
+                &nbsp;&nbsp;
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Driver Bata</label>
+                </div>
+                <input type="number" readonly name="driver_bata" class="input-right" value="{{ first_trip.driver_bata|default_if_none:'' }}" step="0.1">
+                &nbsp;&nbsp;
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2">Advance from Customer</label>
+                </div>
+                <input type="number" readonly name="advance_from_customer" class="input-right" value="{{ first_trip.advance_from_customer|default_if_none:'' }}" step="0.1">
+                &nbsp;&nbsp;
+            </div>
+
+            <div class="d-flex align-items-center ">
+                <div class="col-md-8 col-8">
+                <label class="me-2 ">Total Freight Charges</label>
+                </div>
+                <input type="number"  id="total_freight_charges" class="bg-success text-white input-right" name="total_freight_charges" value="{{ first_trip.total_freight_charges|default_if_none:'' }}" step="0.1" readonly>
+                &nbsp;&nbsp;
+            </div>
+    </div>
+</div>
+<!--</div>-->
+
+<!--        <button type="submit" class="btn back-btn">Save</button>-->
+        <a href="{% url 'main:index' %}" class="btn back-btn">Back</a>
+        <a href="{% url 'main:trip_delete' first_trip.series first_trip.entry_number %}" class="btn back-btn">Delete</a>
+<!--        <a href="#" class="btn back-btn">Delete</a>-->
+</form>
+
+
+</div>
+</div>
+
+<!-- </div>-->
+<!--</div>-->
+
+
+<script>
+
+// load date start here
+        document.addEventListener("DOMContentLoaded", function () {
+        let today = new Date().toISOString().split('T')[0];
+        document.getElementById("loading_date").value = today;
+        document.getElementById("unloading_date").value = today;
+    });
+// load date end here
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Get the input fields
+    const startKmInput = document.getElementById("start_km");
+    const endKmInput = document.getElementById("end_km");
+    const totalKmInput = document.getElementById("total_km");
+    const kmRateInput = document.getElementById("km_rate");
+    const kmChargeTotalInput = document.getElementById("km_charge_total");
+    const extraHourChargeTotalInput = document.getElementById("extra_hour_charge_total");
+    const fixedChargeTotalInput = document.getElementById("fixed_charge_total");
+    const haultingChargeTotalInput = document.getElementById("haulting_charge_total");
+    const tollParkingTotalInput = document.getElementById("toll_parking_total");
+    const totalFreightChargesInput = document.getElementById("total_freight_charges");
+
+    // Function to calculate total km
+    function calculateTotalKm() {
+        const startKm = parseFloat(startKmInput.value) || 0;
+        const endKm = parseFloat(endKmInput.value) || 0;
+        const totalKm = Math.max(endKm - startKm, 0); // Ensure no negative values
+        totalKmInput.value = totalKm.toFixed(2);
+
+        // Call function to update km charge total
+        calculateKmChargeTotal();
+    }
+
+    // Function to calculate KM Charge Total
+    function calculateKmChargeTotal() {
+        const kmRate = parseFloat(kmRateInput.value) || 0;
+        const totalKm = parseFloat(totalKmInput.value) || 0;
+        const kmChargeTotal = kmRate * totalKm;
+
+        kmChargeTotalInput.value = kmChargeTotal.toFixed(2);
+
+        // Call function to update total freight charges
+        calculateTotalFreightCharges();
+    }
+
+    // Function to calculate Total Freight Charges
+    function calculateTotalFreightCharges() {
+        const kmChargeTotal = parseFloat(kmChargeTotalInput.value) || 0;
+        const extraHourChargeTotal = parseFloat(extraHourChargeTotalInput.value) || 0;
+        const fixedChargeTotal = parseFloat(fixedChargeTotalInput.value) || 0;
+        const haultingChargeTotal = parseFloat(haultingChargeTotalInput.value) || 0;
+        const tollParkingTotal = parseFloat(tollParkingTotalInput.value) || 0;
+
+        const totalFreightCharges = kmChargeTotal + extraHourChargeTotal + fixedChargeTotal + haultingChargeTotal + tollParkingTotal;
+        totalFreightChargesInput.value = totalFreightCharges.toFixed(2);
+    }
+
+    // Attach event listeners
+    startKmInput.addEventListener("input", calculateTotalKm);
+    endKmInput.addEventListener("input", calculateTotalKm);
+    kmRateInput.addEventListener("input", calculateKmChargeTotal);
+    totalKmInput.addEventListener("input", calculateKmChargeTotal);
+    extraHourChargeTotalInput.addEventListener("input", calculateTotalFreightCharges);
+    fixedChargeTotalInput.addEventListener("input", calculateTotalFreightCharges);
+    haultingChargeTotalInput.addEventListener("input", calculateTotalFreightCharges);
+    tollParkingTotalInput.addEventListener("input", calculateTotalFreightCharges);
+});
+</script>
+<!-- Jquery JS-->
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+<!--</body>-->
+
+<!--</html>-->

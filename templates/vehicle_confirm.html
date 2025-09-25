@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Brand</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+
+        }
+         .logo p {
+        color:white;
+        }
+        .main_content {
+            border: 1px solid rgb(43, 114, 227);
+            padding: 20px;
+            width: 50%;
+            border-radius: 5px;
+            background:#f5f5f5;
+            margin-top:80px;
+        }
+        .btn {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+        }
+        .delete-btn { background-color: #dc3545; }
+        .cancel-btn { background-color: #007bff; }
+    </style>
+<!--</head>-->
+
+<!--<body>-->
+<!--<div class="page-wrapper">-->
+    <!-- HEADER MOBILE-->
+<!--    <header class="header-mobile d-block d-lg-none">-->
+<!--        <div class="header-mobile__bar">-->
+<!--            <div class="container-fluid">-->
+<!--                <div class="header-mobile-inner">-->
+<!--                    <a class="logo" href="index.html">-->
+<!--                        <img src="images/icon/logo.png" alt="CoolAdmin"/>-->
+<!--                    </a>-->
+<!--                    <button class="hamburger hamburger&#45;&#45;slider" type="button">-->
+<!--                            <span class="hamburger-box">-->
+<!--                                <span class="hamburger-inner"></span>-->
+<!--                            </span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <nav class="navbar-mobile">-->
+<!--            <div class="container-fluid">-->
+<!--                <ul class="navbar-mobile__list list-unstyled">-->
+<!--&lt;!&ndash;                    <li class="has-sub">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="js-arrow" href="{% url 'main:index' %}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                     <li class="active has-sub">-->
+<!--                                                <a href="{% url 'main:index' %}">-->
+<!--                                                    <i class="fas fa-tachometer-alt"></i>Home</a>-->
+<!--                                            </li>-->
+
+<!--                    <li class="has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Masters</a>-->
+<!--                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:brand_create' %}">Brand</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:vehicle_add'%}">Model</a>-->
+<!--                            </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_type_create'%}">Vehicle type name</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_master_add'%}">Vehicle  Master</a>-->
+<!--                                </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:employee_create'%}">Employee</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                     <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Trip sheet</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_create' %}">Trip sheet entery</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_list'%}">Modify trip sheet</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_search_delete'%}">Delete trip sheet</a>-->
+<!--                            </li>-->
+
+<!--                        </ul>-->
+<!--                    </li>-->
+
+
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </nav>-->
+<!--    </header>-->
+    <!-- END HEADER MOBILE-->
+
+    <!-- MENU SIDEBAR-->
+<!--    <aside class="menu-sidebar d-none d-lg-block">-->
+<!--        <div class="logo">-->
+<!--            &lt;!&ndash;                <a href="#">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <img src="images/icon/logo.png" alt="Cool Admin" />&ndash;&gt;-->
+<!--            &lt;!&ndash;                </a>&ndash;&gt;-->
+<!--            <p> LOGIWARE </p>-->
+<!--        </div>-->
+<!--        <div class="menu-sidebar__content js-scrollbar1" style="background-color: #c83200;">-->
+<!--            <nav class="navbar-sidebar">-->
+<!--                <ul class="list-unstyled navbar__list">-->
+<!--&lt;!&ndash;                    <li class="active has-sub">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="js-arrow" href="{% url 'main:index' %}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                     <li class="active has-sub">-->
+<!--                                                <a href="{% url 'main:index' %}">-->
+<!--                                                    <i class="fas fa-tachometer-alt"></i>Home</a>-->
+<!--                                            </li>-->
+
+<!--                    <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Masters</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:brand_create' %}">Brand</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:vehicle_add'%}">Model</a>-->
+<!--                            </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_type_create'%}">Vehicle type name</a>-->
+<!--                                </li>-->
+<!--                             <li>-->
+<!--                                <a href="{% url 'main:vehicle_master_add'%}">Vehicle  Master</a>-->
+<!--                                </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:employee_create' %}">Employee</a>-->
+<!--                            </li>-->
+
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                     <li class="active has-sub">-->
+<!--                        <a class="js-arrow" href="#">-->
+<!--                            <i class="fas fa-chart-bar"></i>Trip sheet</a>-->
+<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_create' %}">Trip sheet entery</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_list'%}">Modify trip sheet</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="{% url 'main:trip_search_delete'%}">Delete trip sheet</a>-->
+<!--                            </li>-->
+
+<!--                        </ul>-->
+<!--                    </li>-->
+
+
+
+<!--                </ul>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--    </aside>-->
+    <!-- END MENU SIDEBAR-->
+
+    <!-- PAGE CONTAINER-->
+<!--    <div class="page-container">-->
+        <!-- HEADER DESKTOP-->
+<!--        <header class="header-desktop">-->
+<!--            <div class="section__content section__content&#45;&#45;p30">-->
+<!--                <div class="container-fluid">-->
+<!--                    <div class="header-wrap">-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </header>-->
+        <!-- HEADER DESKTOP-->
+
+        <!--Main content-->
+
+        <div class="main_content">
+
+            <h2>Data deleted successfully</h2>
+
+
+
+            <a href="{% url 'main:vehicle_list' %}" class="btn cancel-btn">Back to list</a>
+        </div>
+
+<!--    </div>-->
+<!--</div>-->
+<!-- Jquery JS-->
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+<!--</body>-->
+
+<!--</html>-->

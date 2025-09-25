@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bill</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+    <style>
+
+        .main_content{
+            margin-top:75px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+
+        }
+         .logo p {
+        color:white;
+        }
+        form {
+            width: 38%;
+            padding: 20px;
+            border: 2px solid rgb(43, 114, 227);
+            border-radius: 5px;
+            background:#f5f5f5;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+           /* padding: 8px;*/
+            margin-top: 5px;
+           /* margin-bottom:80px;*/
+            border: 1px solid black;
+            /*border-radius: 4px;*/
+        }
+        .btn {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+        }
+        .save-btn { background-color: #28a745; }
+        .back-btn { background-color: #007bff; }
+
+        /* media query*/
+        @media only screen and (max-width:600px) {
+        form{
+            width:100%;
+
+        }
+}
+    </style>
+
+
+        <!--Main content-->
+<div class="main_content">
+
+<!--    <form method="get" action="{% url 'main:trip_list' %}">-->
+    <form method="post">
+        <h2 style="text-align: center;">Delete </h2>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12 d-flex align-items-center">
+                <div class="col-md-4">
+            <label for="series">Series:</label>
+                </div>
+                <div class="col-md-5">
+        <!-- <input type="text" name="series" id="series" value="{{ trip.series|default_if_none:'' }}" required><br>-->
+               <select name="series" id="series" required>
+                    <option value="">Select series</option>
+                    {% for s in series %}
+                        <option value="{{ s.id }}">
+                            {{ s.series }}
+                        </option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div>
+            <div class="col-md-12 d-flex align-items-center" style="margin-bottom:80px;">
+                <div class="col-md-4">
+            <label for="entry_number">Bill No:</label>
+                </div>
+                <div class="col-md-5">
+            <input type="number" name="entry_number" id="entry_number" required><br>
+            </div>
+            </div>
+        </div>
+        <a href="{% url 'main:index' %}" class="btn back-btn">Back</a>
+        <button type="submit" class="btn btn-success">ok</button>
+
+    </form>
+{% if error %}
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ error }}',
+        confirmButtonColor: '#d33'
+    });
+</script>
+{% endif %}
+</div>
+
+  </div>
+</div>
+<!-- Jquery JS-->
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

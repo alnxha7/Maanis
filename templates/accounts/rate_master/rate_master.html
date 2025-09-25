@@ -1,0 +1,694 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bill Detils</title>
+
+<link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+<link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+<link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+<link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+<!-- Bootstrap CSS-->
+<link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+<!-- Vendor CSS-->
+<link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+<link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+    media="all">
+<link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+<link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+<link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+<link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+<link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+<!-- Main CSS-->
+<link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    @media print {
+        body {
+            width: 210mm;
+            height: 297mm;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        #print-button {
+            display: none;
+        }
+    }
+
+    .form-control {
+        padding: 2px 8px;
+        font-size: 14px;
+    }
+
+    .mb-3,
+    .mb-2 {
+        margin-bottom: 8px !important;
+        align-items: center;
+    }
+
+    body {
+        font-family: Public Sans, sans-serif;
+        background-color: #f4f4f4;
+
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        align-items: center;
+        color: black;
+
+    }
+
+    .logo p {
+        color: white;
+    }
+
+    .container_box {
+        background-color: antiquewhite;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-left: 20px;
+        margin-top: 100px;
+        width: 80%;
+    }
+
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    label {
+
+        margin-bottom: 5px;
+    }
+
+
+    input,
+    select {
+        width: 100%;
+        font-size: 10px;
+    }
+
+    select {
+        background: white;
+
+
+    }
+
+    table {
+        background: white;
+        border-collapse: collapse;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .table_input {
+        border: none;
+    }
+
+    th {
+        border: 1px solid black;
+        background: #f2f2f2;
+        padding: 5px;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    button {
+        padding: 10px;
+        background: #28a745;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn {
+        margin-top: -10px;
+        display: inline-block;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 4px;
+        color: white;
+        margin-right: 10px;
+        margin-bottom: 20px;
+    }
+
+    .btn-info {
+        margin-top: -25px;
+        display: inline-block;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 4px;
+        color: white;
+        margin-right: 10px;
+        margin-bottom: -15px;
+    }
+
+    .save-btn {
+        background-color: #28a745;
+    }
+
+    .back-btn {
+        background-color: #007bff;
+    }
+
+    .input-right {
+        text-align: right;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .container_box {
+            width: 90%;
+        }
+    }
+
+    label {
+        font-weight: 500;
+        width: 90px;
+        font-size: 12px;
+    }
+
+    .form-group-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .form-group-row label {
+        min-width: 120px;
+        margin-right: 8px;
+        margin-bottom: 0;
+    }
+
+    table {
+        width: 90%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    th {
+        border: 1px solid #999;
+        padding: 2px;
+        text-align: center;
+    }
+
+    td {
+        border: 1px solid #999;
+        padding: -4px;
+        text-align: center;
+        font-size: 11px;
+        height: 10px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        /* width: 100%; */
+        padding: -5px;
+        box-sizing: border-box;
+    }
+
+    .btn-delete {
+        color: white;
+        border: none;
+        padding: 0px 5px;
+        cursor: pointer;
+    }
+
+    .btn-delete:hover {
+        background-color: #c0392b;
+    }
+
+    .table_data {
+        font-size: 12px;
+        padding: 2px 4px;
+        text-align: center;
+        width: 70px;
+        /* set a fixed width */
+        max-width: 80px;
+        /* prevent stretching */
+        box-sizing: border-box;
+    }
+
+    .top-section {
+        width: 210%;
+        padding-left: 20px;
+        padding-right: 340px;
+    }
+
+
+
+    .bottom-section {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .column {
+        padding: 2px;
+        border-radius: 6px;
+    }
+
+    .second-column {
+        flex: 0.5;
+        /* Center - less space */
+        text-align: center;
+    }
+
+    .third-column {
+        padding-left: 10px;
+    }
+    .column input {
+        width: 100%;
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .column label {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
+    }
+
+    .d-flex.align-items-center {
+        gap: 4px;
+    }
+
+    .d-flex.align-items-center>div {
+        margin-bottom: 0;
+        flex: 0 0 auto;
+        padding-right: 4px;
+    }
+
+    .d-flex.align-items-center label {
+        margin-bottom: 0;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .d-flex.align-items-center input {
+        flex: 1;
+        max-width: 150px;
+        font-size: 13px;
+    }
+    /* Compact table rows */
+#billingTable td,
+#billingTable th {
+    padding: 2px 4px !important;  /* very small padding */
+    font-size: 11px;              /* smaller text */
+    line-height: 1.2;             /* tighter row height */
+}
+
+.table_data {
+    font-size: 12px;
+    padding: 2px 4px;
+    text-align: center;
+    width: 70px;      /* ?? this is forcing small width */
+    max-width: 80px;  /* ?? also restricting growth */
+    box-sizing: border-box;
+}
+
+#billingTable td input.table_data,
+#billingTable td select.table_data {
+    width: 100%;         /* fill td */
+    max-width: none;     /* remove artificial cap */
+    box-sizing: border-box;
+    font-size: 11px;
+    padding: 2px 3px;
+    height: 20px;
+    text-align: center;
+    border: none;
+}
+
+/* Delete button style */
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: rgb(255, 0, 0);
+    font-size: 11px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Adjust icon inside button */
+.delete-btn i {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+#billingTable {
+    table-layout: fixed;   /* ?? ensures all columns keep fixed width */
+    width: 100%;
+}
+
+/* Define proportional widths for each column */
+#billingTable th:nth-child(1),
+#billingTable td:nth-child(1) {
+    width: 40px;  /* Sl.no */
+}
+#billingTable th:nth-child(2),
+#billingTable td:nth-child(2) {
+    width: 140px; /* Vehicle */
+}
+#billingTable th:nth-child(3),
+#billingTable td:nth-child(3) {
+    width: 90px;  /* Type */
+}
+#billingTable th:nth-child(4),
+#billingTable td:nth-child(4) {
+    width: 100px; /* Rate (Km) */
+}
+#billingTable th:nth-child(5),
+#billingTable td:nth-child(5) {
+    width: 100px; /* Km (if Fixed) */
+}
+#billingTable th:nth-child(6),
+#billingTable td:nth-child(6) {
+    width: 120px; /* Rate for Fixed(Km) */
+}
+#billingTable th:nth-child(7),
+#billingTable td:nth-child(7) {
+    width: 120px; /* Additional Charges */
+}
+#billingTable th:nth-child(8),
+#billingTable td:nth-child(8) {
+    width: 60px;  /* Actions */
+}
+
+/* Let inputs always fill their cell */
+#billingTable td input.table_data,
+#billingTable td select.table_data {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 11px;
+    padding: 2px 3px;
+    height: 22px;
+    text-align: center;
+    border: none;
+}
+
+/* Instead of shrinking columns when hidden, just hide input visually */
+.hidden-field {
+    visibility: hidden;   /* invisible but space remains */
+    position: absolute;   /* avoids affecting row height */
+}
+</style>
+
+<div class="container_box">
+
+    <div class="container">
+
+
+        <h2>Rate Master</h2>
+
+        <form method="post" id="bill-form">
+            {% csrf_token %}
+            <div class="container">
+                <div class="top-section">
+                    <div class="form-group row">
+                        <label for="customer_name" style="padding-top: 6px;" class="form-label">Customer Name</label>
+                        <div class="col-sm-1">
+                            <select name="customer_name" id="customer_name" class="form-control"
+                                style="width: 230px; height: 30px;" required autocomplete="off">
+                                <option value="">--- select customer ---</option>
+                                {% for customer in customers %}
+                                    <option value="{{ customer.head }}">{{ customer.head }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- ?? Table Section -->
+                <div class="table-container">
+                    <table id="billingTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">Sl.no</th>
+                                <th>Vehicle</th>
+                                <th>Type</th>
+                                <th style="width: 100px;">Rate (Km)</th>
+                                <th style="width: 100px;">Km (if Fixed)</th>
+                                <th>Rate for Fixed(Km)</th>
+                                <th style="width: 120px;">Additional Charges</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <select class="table_data" name="vehicle[]" required>
+                                        <option value="">--- select vehicle ---</option>
+                                        {% for vehicle in vehicles %}
+                                            <option value="{{ vehicle.registration_number }}">{{ vehicle.vehicle_type.vehicle_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="table_data type-select" name="type[]" required>
+                                        <option value="Km Wise">Km Wise</option>
+                                        <option value="Fixed">Fixed</option>
+                                        <option value="Monthly">Monthly</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" class="table_data" name="rate[]" step="0.01" required>
+                                </td>
+                                <td>
+                                    <input type="number" class="table_data km-input" name="fixed_km[]" step="1" style="display:none;">
+                                </td>
+                                <td>
+                                    <input type="number" class="table_data fixed-rate-input" name="fixed_rate[]" step="0.01" style="display:none;">
+                                </td>
+                                <td>
+                                    <input type="number" class="table_data add-charge-input" name="additional_charge[]" step="0.01" style="display:none;">
+                                </td>
+                                <td>
+                                    <button type="button" class="delete-btn">
+                                        <i class="fa-sharp fa-solid fa-trash fa-shake fa-sm"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <!-- Buttons -->
+            <div class="">
+                <div class="col-sm-12 text-end">
+                    <a href="{% url 'main:index' %}" id="" class="btn btn-danger btn-sm">Cancel</a>
+                    <a href="{% url 'main:rate_list' %}" id="" class="btn btn-primary btn-sm">List</a>
+                    <button type="submit" id="" class="btn btn-success btn-sm" name="action" value="save">Save</button>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+
+{% if error %}
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ error }}',
+        confirmButtonColor: '#d33'
+    });
+</script>
+{% elif success %}
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Rate Master Created Successfully',
+        confirmButtonText: 'OK',
+    });
+</script>
+{% endif %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const tableBody = document.querySelector('#billingTable tbody');
+    if (!tableBody) return;
+
+    // ? Update Sl.no
+    function updateSerialNumbers() {
+        const rows = tableBody.querySelectorAll('tr');
+        rows.forEach((row, index) => {
+            row.querySelector('td:first-child').textContent = index + 1;
+        });
+    }
+
+    // ? Show/Hide Km & Additional Charges
+    function toggleFields(row) {
+        const typeSelect = row.querySelector(".type-select");
+        const kmInput = row.querySelector(".km-input");
+        const rateInput = row.querySelector('input[name="rate[]"]');
+        const addChargeInput = row.querySelector(".add-charge-input");
+        const fixedRate = row.querySelector(".fixed-rate-input");
+
+        if (typeSelect.value === "Fixed") {
+            kmInput.style.display = "block";
+            addChargeInput.style.display = "block";
+            fixedRate.style.display = "block";
+
+            rateInput.value = "none";
+            rateInput.style.display = "none";
+            rateInput.required = false;
+
+            kmInput.required = true;
+            addChargeInput.required = true;
+            fixedRate.required = true;
+        } else {
+            kmInput.style.display = "none";
+            kmInput.value = "";
+
+            addChargeInput.style.display = "none";
+            addChargeInput.value = "";
+
+            fixedRate.style.display = "none";
+            fixedRate.value = "";
+
+            rateInput.style.display = "block";
+
+            kmInput.required = false;
+            addChargeInput.required = false;
+            fixedRate.required = false; 
+        }
+    }
+
+    function addNewRow() {
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td></td>
+            <td>
+                <select class="table_data" name="vehicle[]" required>
+                    <option value="">--- select vehicle ---</option>
+                    {% for vehicle in vehicles %}
+                        <option value="{{ vehicle.registration_number }}">{{ vehicle.registration_number }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select class="table_data type-select" name="type[]" required>
+                    <option value="Km Wise">Km Wise</option>
+                    <option value="Fixed">Fixed</option>
+                </select>
+            </td>
+            <td>
+                <input type="number" class="table_data" name="rate[]" step="0.01" required>
+            </td>
+            <td>
+                <input type="number" class="table_data km-input" name="fixed_km[]" step="1" style="display:none;">
+            </td>
+            <td>
+                <input type="number" class="table_data fixed-rate-input" name="fixed_rate[]" step="0.01" style="display:none;">
+            </td>
+            <td>
+                <input type="number" class="table_data add-charge-input" name="additional_charge[]" step="0.01" style="display:none;">
+            </td>
+            <td>
+                <button type="button" class="delete-btn">
+                    <i class="fa-sharp fa-solid fa-trash fa-shake fa-sm"></i>
+                </button>
+            </td>
+        `;
+        tableBody.appendChild(newRow);
+        bindRowEvents(newRow);
+        updateSerialNumbers();
+    }
+
+    // ? Handle Enter key (adds row)
+    function handleKeyDown(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            addNewRow();
+        }
+    }
+
+    // ? Bind row events
+    function bindRowEvents(row) {
+        const deleteBtn = row.querySelector(".delete-btn");
+        deleteBtn.addEventListener("click", function () {
+            if (tableBody.rows.length > 1) {
+                row.remove();
+                updateSerialNumbers();
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "At Least One Row Must Remain!",
+                });
+            }
+        });
+
+        const typeSelect = row.querySelector(".type-select");
+        typeSelect.addEventListener("change", function () {
+            toggleFields(row);
+        });
+
+        const rateInput = row.querySelector('input[name="rate[]"]');
+        const tableBody = document.querySelector('#billingTable tbody');
+        if (rateInput) {
+            rateInput.addEventListener("keydown", handleKeyDown);
+            rateInput.addEventListener("dblclick", addNewRow);
+            tableBody.addEventListener("dblclick", addNewRow);
+        }
+    }
+
+    // ? Initialize
+    tableBody.querySelectorAll("tr").forEach(row => {
+        bindRowEvents(row);
+        toggleFields(row);
+    });
+
+    updateSerialNumbers();
+});
+</script>
+
+
+{% endblock %}

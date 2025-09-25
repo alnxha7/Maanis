@@ -1,0 +1,174 @@
+{% extends "web/franchise/base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- <link rel="stylesheet" href="{% static 'web/css/form2.css' %}"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- Include unpkg1 CSS and JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    
+.container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.section {
+  border: 1px solid #ccc;
+  padding: 15px 89px;
+  border-radius: 5px;
+}
+
+.section h4 {
+  margin-bottom: 10px;
+  font-size: 19px;
+  color: #333;
+}
+
+/* label {
+  display: block;
+  margin: 6px 0;
+  font-size: 14px;
+  color: #222;
+} */
+</style>
+
+<div class="group-data-[sidebar-size=lg]:ltr:md:ml-vertical-menu group-data-[sidebar-size=lg]:rtl:md:mr-vertical-menu group-data-[sidebar-size=md]:ltr:ml-vertical-menu-md group-data-[sidebar-size=md]:rtl:mr-vertical-menu-md group-data-[sidebar-size=sm]:ltr:ml-vertical-menu-sm group-data-[sidebar-size=sm]:rtl:mr-vertical-menu-sm pt-[calc(theme('spacing.header')_*_1)] pb-[calc(theme('spacing.header')_*_0.8)] px-4 group-data-[navbar=bordered]:pt-[calc(theme('spacing.header')_*_1.3)] group-data-[navbar=hidden]:pt-0 group-data-[layout=horizontal]:mx-auto group-data-[layout=horizontal]:max-w-screen-2xl group-data-[layout=horizontal]:px-0 group-data-[layout=horizontal]:group-data-[sidebar-size=lg]:ltr:md:ml-auto group-data-[layout=horizontal]:group-data-[sidebar-size=lg]:rtl:md:mr-auto group-data-[layout=horizontal]:md:pt-[calc(theme('spacing.header')_*_1.6)] group-data-[layout=horizontal]:px-3 group-data-[layout=horizontal]:group-data-[navbar=hidden]:pt-[calc(theme('spacing.header')_*_0.9)]"
+    style=" background: linear-gradient(135deg, #ececec, #d9d8d8);">
+    <div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto">
+        <h4 class="py-5"></h4>
+        <div class="card" style="background-color: antiquewhite; width: 93%; margin-left: 30px;">
+            <div class="card-body">
+                <h1 style="font-size: 35px; text-align: center; color: rebeccapurple;"  class="mb-4  title-h1-1">CREATE A NEW FINANCIAL YEAR FORM</h1>
+                <div class="grid grid-cols-1 gap-5">
+                    <form method="post">
+                        {% csrf_token %}
+                    
+                        <!-- COMPANY ID -->
+                        <div style="display: flex;">
+                            <label style="width: 300px;" for="company_id">COMPANY ID:</label>
+                            <select style="width: 10%; height: 5vh;  padding-left: 10px;" name="company_id" id="company_id">
+                                {% for company in companies %}
+                                    <option value="{{ company.id }}">{{ company.company_id }}</option>
+                                {% endfor %}
+                            </select>
+                        </div><br><br>
+                    
+                        <!-- COMPANY NAME -->
+                        <div style="display: flex;      ">
+                            <label style="width: 300px;" for="company_name_id">COMPANY :</label>
+                            <select style="width: 36%; height: 5vh; background-color: #91cfe0;  padding-left: 10px;" name="company_name_id" id="company_name_id">
+                                {% for company in companies %}
+                                    <option value="{{ company.id }}">{{ company.companyname }}</option>
+                                {% endfor %}
+                            </select>
+                        </div><br><br>
+                    
+                        <div style="display: flex; gap: 3%;">
+                            <div>
+                                <label style="width: 300px; " for="finyearfrom">NEW F.Y DATE FROM :</label>
+                                <input style=" margin-left: 150px; height: 40px; padding-left: 10px;" type="date" name="finyearfrom" id="finyearfrom"><br><br>
+                            </div>
+                            <div>
+                                <label for="finyearto">To :</label>
+                                <input style="height: 40px; padding-left: 10px;" type="date" name="finyearto" id="finyearto" readonly><br><br>
+                            </div>
+                        </div>
+                        
+
+                                                
+                    
+                        <!-- COPY FROM YEAR -->
+                        <div style="display: flex;">
+                            <label style="width: 300px;" for="copy_from_fy_id">COPY DATA FROM FINANCIAL YEAR :</label>
+                            <select style="width: 10%; height: 40px; padding-left: 10px;" name="copy_from_fy_id" id="copy_from_fy_id">
+                                {% for fy in financial_years %}
+                                    <option value="{{ fy.id }}">{{ fy.fycode }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <br><br>
+                    
+                        <!-- ACCOUNT BALANCE / STOCK -->
+                        <div class="container">
+                            <div class="section">
+                                <h4>ACCOUNT BALANCE</h4>
+                                <label><input type="radio" name="account_balance" value="opening" > OPENING BALANCE</label><br>
+                                <label><input type="radio" name="account_balance" value="zero"> ZERO</label>
+                            </div>
+                            <div class="section">
+                                <h4>STOCK</h4>
+                                <label><input type="radio" name="stock" value="opening" > OPENING BALANCE</label><br>
+                                <label><input type="radio" name="stock" value="zero"> ZERO</label>
+                            </div>
+                        </div><br><br>
+                    
+                        <!-- SUBMIT BUTTON -->
+                        <button type="submit" class="text-orange-500 bg-white border-orange-500 btn hover:text-white hover:bg-orange-600 ...">
+                            Save
+                        </button>
+                    </form>
+                    
+                </div><!--END GRID-->
+            </div>
+        </div><!--end card-->
+    </div>
+    <!-- container-fluid -->
+</div>
+
+<script>
+    // Check if there are any messages with specific tags
+    {% for message in messages %}
+    {% if "form_submit" in message.tags or "form_delete" in message.tags %}
+    // Create a list of messages
+    var messages = "";
+    {% for message in messages %}
+    {% if "form_submit" in message.tags or "form_delete" in message.tags %}
+    messages += "<li>{{ message }}</li>";
+    {% endif %}
+    {% endfor %}
+    
+    // Trigger unpkg1 popup with messages
+    Swal.fire({
+        title: 'Notification',
+        html: "<ul class='messages'>" + messages + "</ul>",
+        icon: 'success', // Change this to 'error', 'warning', 'info', etc. based on the message type
+        confirmButtonText: 'OK',
+        timer: 3000, // Auto close after 3 seconds
+        timerProgressBar: true
+    });
+    {% endif %}
+    {% endfor %}
+</script>
+
+
+
+<script>
+    const fromInput = document.getElementById("finyearfrom");
+    const toInput = document.getElementById("finyearto");
+
+    function setFromAndToDates(year) {
+        const fromDate = `${year}-04-01`;
+        const toDate = `${year + 1}-03-31`;
+
+        fromInput.value = fromDate;
+        toInput.value = toDate;
+    }
+
+    // Set default for FY 2025-2026
+    setFromAndToDates(2025);
+
+    // Lock day/month on change and auto-set "To" field
+    fromInput.addEventListener("change", function () {
+        const year = new Date(this.value).getFullYear();
+        setFromAndToDates(year);
+    });
+
+    
+</script>
+
+{% endblock %}

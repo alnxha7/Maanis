@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns="http://www.w3.org/1999/html">-->
+
+<!--<head>-->
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>Dashboard</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+    <style>
+body {
+    background-image: url("{% static 'images/index_1.png' %}");
+    background-size: cover;          /* full screen */
+    background-repeat: no-repeat;    /* no tiling */
+    background-attachment: fixed;    /* fixed on scroll */
+    background-position: center;     /* center */
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    min-height: 100vh;
+}
+
+@keyframes gradientMove {
+    from { background-position: 0% 50%; }
+    to   { background-position: 100% 50%; }
+}
+
+/* Glassmorphic content box */
+.glass-card {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 12% auto;
+    padding: 40px;
+    text-align: center;
+}
+
+/* Heading with gradient blue */
+.glass-card h1 {
+    font-size: 42px;
+    font-weight: bold;
+    background: linear-gradient(90deg, #010874, #1e73d3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+}
+
+/* Supporting text */
+.glass-card p {
+    font-size: 18px;
+    color: #f8f9fa; /* white-ish */
+    margin-bottom: 25px;
+}
+
+/* Call-to-action button */
+.glass-card .btn-primary {
+    padding: 12px 28px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, #007bff, #3399ff);
+    border: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.glass-card .btn-primary:hover {
+    background: linear-gradient(90deg, #0056b3, #007bff);
+    transform: translateY(-2px);
+}
+
+/* Footer styling */
+.footer {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    z-index: 3;
+}
+
+    </style>
+
+    <div class="glass-card">
+        <h1>Welcome to MAANIS SUPPLY CHAIN SOLUTIONS LLP</h1>
+        <p>Manage Vehicles, Customers & Billing Seamlessly</p>
+    </div>
+    <div class="footer_heading">
+      <h1></h1>
+    </div>
+
+<!--</div>-->
+
+<!-- Jquery JS-->
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+<!--</body>-->
+
+<!--</html>-->
+<!-- end document-->

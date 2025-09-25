@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+
+    <label>Series:</label>
+    <input type="text" name="series" value="{{ trip.series }}" readonly><br>
+
+    <label>Entry Number:</label>
+    <input type="text" name="entry_number" value="{{ trip.entry_number }}" readonly><br>
+
+    <label>Loading Date:</label>
+    <input type="date" name="loading_date" value="{{ trip.loading_date|date:'Y-m-d' }}"><br>
+
+    <label>Vehicle Number:</label>
+    <select name="vehicle_number">
+        {% for vehicle in vehicles %}
+            <option value="{{ vehicle.registration_number }}" {% if vehicle.registration_number == trip.vehicle_number.registration_number %}selected{% endif %}>
+                {{ vehicle.registration_number }}
+            </option>
+        {% endfor %}
+    </select><br>
+
+    <label>Vehicle Type:</label>
+    <select name="vehicle_type">
+        {% for type in vehicle_types %}
+            <option value="{{ type.id }}" {% if type.id == trip.vehicle_type_id %}selected{% endif %}>{{ type.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <label>Unloading Date:</label>
+    <input type="date" name="unloading_date" value="{{ trip.unloading_date|date:'Y-m-d' }}"><br>
+
+    <label>Driver Name:</label>
+    <select name="driver_name">
+        {% for driver in drivers %}
+            <option value="{{ driver.id }}" {% if driver.id == trip.driver_name.id %}selected{% endif %}>{{ driver.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <label>Customer Name:</label>
+    <input type="text" name="customer_name" value="{{ trip.customer_name }}"><br>
+
+    <label>Loading Point:</label>
+    <input type="text" name="loading_point" value="{{ trip.loading_point }}"><br>
+
+    <label>Unloading Point:</label>
+    <input type="text" name="unloading_point" value="{{ trip.unloading_point }}"><br>
+
+    <label>Product:</label>
+    <input type="text" name="product" value="{{ trip.product }}"><br>
+
+    <label>Remark:</label>
+    <input type="text" name="remark" value="{{ trip.remark }}"><br>
+
+    <label>Starting KM:</label>
+    <input type="number" name="starting_km" value="{{ trip.starting_km }}"><br>
+
+    <label>Ending KM:</label>
+    <input type="number" name="ending_km" value="{{ trip.ending_km }}"><br>
+
+    <label>KM Rate:</label>
+    <input type="number" name="km_rate" value="{{ trip.km_rate }}"><br>
+
+    <label>Filling KM:</label>
+    <input type="number" name="filling_km" value="{{ trip.filling_km }}"><br>
+
+    <label>Payment By:</label>
+    <select name="payment_by">
+        {% for choice in trip.PAYMENT_BY %}
+            <option value="{{ choice.0 }}" {% if choice.0 == trip.payment_by %}selected{% endif %}>{{ choice.1 }}</option>
+        {% endfor %}
+    </select><br>
+
+    <label>Tyre Work:</label>
+    <input type="number" name="tyre_work" value="{{ trip.tyre_work }}"><br>
+
+    <label>Battery:</label>
+    <input type="number" name="battery" value="{{ trip.battery }}"><br>
+
+    <label>Mechanical Electric:</label>
+    <input type="number" name="mech_electric" value="{{ trip.mech_electric }}"><br>
+
+    <label>Statutory Charge:</label>
+    <input type="number" name="statutory_charge" value="{{ trip.statutory_charge }}"><br>
+
+    <label>Statutory Narration:</label>
+    <input type="text" name="statutory_narration" value="{{ trip.statutory_narration }}"><br>
+
+    <label>Total KM:</label>
+    <input type="number" name="total_km" value="{{ trip.total_km }}"><br>
+
+    <label>KM Charge Total:</label>
+    <input type="number" name="km_charge_total" value="{{ trip.km_charge_total }}"><br>
+
+    <label>Extra Hour Charge Total:</label>
+    <input type="number" name="extra_hour_charge_total" value="{{ trip.extra_hour_charge_total }}"><br>
+
+    <label>Fixed Charge Total:</label>
+    <input type="number" name="fixed_charge_total" value="{{ trip.fixed_charge_total }}"><br>
+
+    <label>Haulting Charge Total:</label>
+    <input type="number" name="haulting_charge_total" value="{{ trip.haulting_charge_total }}"><br>
+
+    <label>Toll Parking Total:</label>
+    <input type="number" name="toll_parking_total" value="{{ trip.toll_parking_total }}"><br>
+
+    <label>Diesel LTR:</label>
+    <input type="number" name="diesel_ltr" value="{{ trip.diesel_ltr }}"><br>
+
+    <label>Diesel Charges:</label>
+    <input type="number" name="diesel_charges" value="{{ trip.diesel_charges }}"><br>
+
+    <label>Advance Driver:</label>
+    <input type="number" name="advance_driver" value="{{ trip.advance_driver }}"><br>
+
+    <label>Driver Bata:</label>
+    <input type="number" name="driver_bata" value="{{ trip.driver_bata }}"><br>
+
+    <label>Advance from Customer:</label>
+    <input type="number" name="advance_from_customer" value="{{ trip.advance_from_customer }}"><br>
+
+    <label>Total Freight Charges:</label>
+    <input type="number" name="total_freight_charges" value="{{ trip.total_freight_charges }}"><br>
+
+    <button type="submit">Update</button>
+</form>
+
+</body>
+</html>

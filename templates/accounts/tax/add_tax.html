@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bill</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet"
+          media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+    <style>
+
+        .main_content{
+            margin-top:75px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+
+        }
+         .logo p {
+        color:white;
+        }
+        form {
+            width: 43%;
+            border: 2px solid rgb(43, 114, 227);
+            border-radius: 5px;
+            background: #faebd7;
+            font-size: 13px;
+            line-height: 10px;
+            gap: 10px;
+        }
+        .form-control {
+            padding: 0px;
+            font-size: 13px;
+            width: 160%;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+           /* padding: 8px;*/
+            margin-top: 5px;
+           /* margin-bottom:80px;*/
+            border: 1px solid black;
+            /*border-radius: 4px;*/
+        }
+        .btn {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+        }
+        .save-btn { background-color: #28a745; }
+        .back-btn { background-color: #007bff; }
+
+        /* media query*/
+        @media only screen and (max-width:600px) {
+        form{
+            width:100%;
+
+        }
+}
+
+    .form-check {
+        padding: 0%;
+    }
+    </style>
+
+<div class="main_content">
+
+<!--    <form method="get" action="{% url 'main:trip_list' %}">-->
+<form method="post" class="p-4">
+    <h2 class="text-center mb-4">Add New Tax</h2>
+    {% csrf_token %}
+    
+    <div class="row mb-3">
+        <div class="col-md-4 text-end">
+            <label for="category" class="form-label">Category:</label>
+        </div>
+        <div class="col-md-5">
+            <select name="category" id="category" class="form-select" required>
+                 <!-- style="width: 130px; height: 32px; text-align: -webkit-center;"  -->
+                <option value="Sales">Sales</option>
+                <option value="Purchase">Purchase</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+    <div class="col-md-4 text-end">
+        <label for="tax_type">Tax Category:</label>
+    </div>
+    <div class="col-md-5">
+        <select name="tax_category" id="tax_category" required style="width: 100%; height: 22px;">
+            <option value="">-- Select Tax Category --</option>
+            <option value="TAXABLE">TAXABLE</option>
+            <option value="NON TAXABLE">NON TAXABLE</option>
+            <option value="TAX COLLECTED">TAX COLLECTED</option>
+        </select>
+    </div>
+    </div>
+
+    <div class="row mb-3">
+    <div class="col-md-4 text-end">
+        <label for="tax_type">Tax Type:</label>
+    </div>
+    <div class="col-md-5">
+        <select name="tax_type" id="tax_type" required style="width: 100%; height: 22px;">
+            <option value="">-- Select Tax Type --</option>
+            <option value="CGST">CGST</option>
+            <option value="SGST">SGST</option>
+            <option value="IGST">IGST</option>
+            <option value="GST">GST</option>
+        </select>
+    </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 text-end">
+            <label for="type" class="form-label">Type:</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" name="type" id="type" class="form-control" required readonly>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 text-end">
+            <label for="tax_perc" class="form-label">Tax (%):</label>
+        </div>
+        <div class="col-md-5">
+            <input type="number" name="tax_perc" id="tax_perc" step="0.01" class="form-control" required>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 text-end">
+            <label for="account_head" class="form-label">Account Head:</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" name="account_head" id="account_head" class="form-control" readonly required>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4 text-end">
+            <label for="group_under" class="form-label">Group Under:</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" name="group_under" id="group_under" class="form-control" readonly required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="text-align: center;">
+            <a href="{% url 'main:index' %}" class="btn btn-secondary me-2">Back</a>
+            <a href="{% url 'main:tax_list' %}" class="btn btn-info">Search</a>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+    </div>
+</form>
+
+{% if error %}
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ error }}',
+        confirmButtonColor: '#d33'
+    });
+</script>
+{% elif success %}
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Tax Created Successfully',
+        confirmButtonText: 'OK',
+    });
+</script>
+{% endif %}
+</div>
+
+  </div>
+</div>
+<!-- Jquery JS-->
+<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+<!-- Bootstrap JS-->
+<script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+<!-- Vendor JS       -->
+<script src="{% static 'vendor/slick/slick.min.js' %}">
+</script>
+<script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+<script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+</script>
+<script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+</script>
+<script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}">
+</script>
+
+<!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+
+
+<script>
+document.getElementById('tax_type').addEventListener('change', function () {
+    document.getElementById('type').value = this.value;
+});
+</script>
+
+<script>
+function updateAccountFields() {
+    const category = document.getElementById("category").value;
+    const taxType = document.getElementById("tax_type").value;
+    const taxCategory = document.getElementById("tax_category").value;
+    const taxPerc = parseFloat(document.getElementById("tax_perc").value);
+
+    const accountHeadField = document.getElementById("account_head");
+    const groupUnderField = document.getElementById("group_under");
+
+    // Build account head
+    let accountHead = category + " " + taxType;
+
+    if (!isNaN(taxPerc) && taxPerc > 0) {
+        accountHead += ` ${taxPerc}%`;
+    }
+
+    if (taxCategory === "TAXABLE") {
+        accountHead += " TAXABLE";
+    } else if (taxCategory === "TAX COLLECTED") {
+        accountHead += " TAX COLLECTED";
+    } else if (taxCategory === "NON TAXABLE") {
+        accountHead += " NON TAXABLE";
+    }
+
+    groupUnderField.value = "DUTIES AND TAXES";
+    accountHeadField.value = accountHead.trim().toUpperCase();
+}
+
+// Add event listeners to update fields when inputs change
+document.getElementById("category").addEventListener("change", updateAccountFields);
+document.getElementById("tax_category").addEventListener("change", updateAccountFields);
+document.getElementById("tax_type").addEventListener("change", updateAccountFields);
+document.getElementById("tax_perc").addEventListener("input", updateAccountFields);
+</script>
+
+{% endblock %}

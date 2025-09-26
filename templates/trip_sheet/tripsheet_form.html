@@ -54,7 +54,7 @@
             /*width: 50%;*/
             border: 2px solid rgb(43, 114, 227);
             margin-left:20px;
-            margin-top:100px;
+            margin-top:23px;
         }
 
 
@@ -267,11 +267,25 @@
                                 {% endfor %}
                         </select>
                     </td>
-                    <td>
-                        <input type="text" class="table_input" name="loading_point[]" value="{{ trip.loading_point|default_if_none:'' }}" >
+                    <td style="width:19%;">
+                        <select name="loading_point[]" class="table_input" id="customerSelect">
+                             <option value="">Select Loading Point</option>
+                                {% for loading_point in loading_points %}
+                                 <option value="{{ loading_point }}" {% if trip.loading_point == loading_point %}selected{% endif %}>
+                                {{ loading_point }}
+                             </option>
+                                {% endfor %}
+                        </select>
                     </td>
-                    <td>
-                        <input type="text" class="table_input" name="unloading_point[]" value="{{ trip.unloading_point|default_if_none:'' }}" >
+                    <td style="width:19%;">
+                        <select name="unloading_point[]" class="table_input" id="customerSelect">
+                             <option value="">Select Unloading Point</option>
+                                {% for unloading_point in unloading_points %}
+                                 <option value="{{ unloading_point }}" {% if trip.unloading_point == unloading_point %}selected{% endif %}>
+                                {{ unloading_point }}
+                             </option>
+                                {% endfor %}
+                        </select>
                     </td>
                     <td >
                         <input type="text" class="table_input" name="product[]" value="{{ trip.product|default_if_none:'' }}" >
@@ -305,10 +319,32 @@
                                 {% endfor %}
                             </select>
                     </td>
-                    <td><input type="text" class="table_input" name="loading_point[]" value=""></td>
-                    <td><input type="text" class="table_input" name="unloading_point[]" value=""></td>
-                    <td><input type="text" class="table_input" name="product[]" value=""></td>
-                    <td style="width:10%;"><input type="text" class="table_input" name="remark[]" value=""></td>
+                    <td style="width:19%;">
+                        <select name="loading_point[]" class="table_input" id="customerSelect">
+                             <option value="">Select Loading Point</option>
+                                {% for loading_point in loading_points %}
+                                 <option value="{{ loading_point }}" {% if trip.loading_point == loading_point %}selected{% endif %}>
+                                {{ loading_point }}
+                             </option>
+                                {% endfor %}
+                        </select>
+                    </td>
+                    <td style="width:19%;">
+                        <select name="unloading_point[]" class="table_input" id="customerSelect">
+                             <option value="">Select Unloading Point</option>
+                                {% for unloading_point in unloading_points %}
+                                 <option value="{{ unloading_point }}" {% if trip.unloading_point == unloading_point %}selected{% endif %}>
+                                {{ unloading_point }}
+                             </option>
+                                {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="table_input" name="product[]" value="">
+                    </td>
+                    <td style="width:10%;">
+                        <input type="text" class="table_input" name="remark[]" value="">
+                    </td>
                     <td>
                         <button type="button" onclick="removeRow(this)" style="background-color:white;padding:0px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 448 512">
@@ -356,7 +392,21 @@
     <div class="col-md-4">
         <div class="row">
                  &nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="col-md-11 col-12">
+        <div class="col-md-8 col-12">
+        <label>Fuel Station</label>
+            <select name="fuel_station">
+                <option value="">Select Fuel Station</option>
+                {% for station in fuel_stations %}
+                    <option value="{{ station.fuel_station }}" {% if first_trip.fuel_station == station.fuel_station %}selected{% endif %}>{{ station.fuel_station }}</option>
+                {% endfor %}
+            </select><br>
+        </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="col-md-8 col-12">
         <label>Payment By</label>
             <select name="payment_by">
                 <option value="">Select Payment Mode</option>

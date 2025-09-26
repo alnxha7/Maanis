@@ -11,7 +11,7 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.db.models import Max
-from .models import Brand, Vehicle, Vehicle_type, Vehicle_master, Employee_master, Trip_sheet, VoucherConfiguration, Table_companyDetailschild, Table_BillItems, Table_BillMaster    
+from .models import Brand, Vehicle, Vehicle_type, Vehicle_master, Employee_master, Trip_sheet, VoucherConfiguration, Table_companyDetailschild, Table_BillItems, Table_BillMaster, LocationMaster, VendorMaster
 from django.db.models import Max
 
     
@@ -820,6 +820,10 @@ def trip_create(request):
     customers = Table_Accountsmaster.objects.filter(
         children__company_id=co_id,children__branch_id=branch, category='Customers'
     )
+    loading_points = LocationMaster.objects.values_list("loading_point", flat=True).distinct()
+    unloading_points = LocationMaster.objects.values_list("unloading_point", flat=True).distinct()
+    fuel_stations = VendorMaster.objects.filter(company__company_id=request.session.get("co_id"))
+
     company = Table_Companydetailsmaster.objects.get(company_id=co_id)
     branch = Branch_master.objects.get(branch_name=branch)
     vouchers  = VoucherConfiguration.objects.filter(category="Trip sheet", company=company,branch=branch)
@@ -916,7 +920,9 @@ def trip_create(request):
         messages.success(request, "Trip sheet added successfully")
         return redirect('main:trip_create')
 
-    return render(request, 'trip_sheet/tripsheet_form.html',{'vehicles':vehicles,'vehicle_types':vehicle_types,'drivers':drivers,'next_sl_no': next_sl_no,"is_update": is_update,"customers":customers,"vouchers":vouchers})
+    return render(request, 'trip_sheet/tripsheet_form.html',{'vehicles':vehicles,'vehicle_types':vehicle_types,'drivers':drivers,
+                                                             'next_sl_no': next_sl_no,"is_update": is_update,"customers":customers,"vouchers":vouchers,
+                                                             'loading_points': loading_points, 'unloading_points': unloading_points, 'fuel_stations': fuel_stations})
 
 
 

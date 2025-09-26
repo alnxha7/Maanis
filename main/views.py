@@ -418,7 +418,7 @@ def vehicle_master_add(request):
     vehicles=Vehicle.objects.filter(co_id=co_id,branch_id=branch).values('model_name').distinct()
     vehicle_types=Vehicle_type.objects.filter(co_id=co_id,branch_id=branch)
     drivers = Employee_master.objects.filter(designation="Driver",co_id=co_id,branch_id=branch)
-    accounts = Table_Accountsmaster.objects.filter(user=request.user,group="SUNDRY DEBTORS").order_by('head')
+    accounts = Table_Accountsmaster.objects.filter(company__company_id=co_id, group="SUNDRY DEBTORS").order_by('head')
 
     if request.method == "POST":
         rc_owner_name = request.POST.get('rc_owner_name').strip().upper()
@@ -505,7 +505,7 @@ def vehicle_master_add(request):
     # drivers = Employee_master.objects.filter(designation="Driver",co_id=co_id,branch_id=branch)
     # users=User.objects.filter(is_superuser=False)
 
-    return render(request, 'vehicle_master/vehicle_master_form.html',{'brands':brands,'vehicles':vehicles,'vehicle_types':vehicle_types,'drivers':drivers})
+    return render(request, 'vehicle_master/vehicle_master_form.html',{'brands':brands,'vehicles':vehicles,'vehicle_types':vehicle_types,'drivers':drivers, 'accounts':accounts})
 
 # vehicle master readonly
 def vehicle_master_readonly(request, pk):
@@ -2749,6 +2749,8 @@ def add_tax(request):
 
         try:
             account_master = Table_Accountsmaster(
+                company=company,
+                branch=Branch_master.objects.get(branch_name=request.session.get('branch')),
                 user=request.user,
                 account_code=account_code + 1,
                 head=account_head,
@@ -2756,9 +2758,7 @@ def add_tax(request):
                 group=group_under,
                 debitcredit='Debit'
             )
-
-            account_master.company_id = co_id
-            account_master.branch_id = branch
+            account_master._fycode = request.session.get('fycode')
             account_master.save()
 
             TaxMaster.objects.create(
@@ -6663,5 +6663,165 @@ def rate_delete(request, rate_id):
         rate = RateChild.objects.get(id=rate_id)
         rate.delete()
         return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+
+
+# ------------------------------------ LOCATION MASTER ----------------------------------
+
+from .models import LocationMaster
+
+def location_master(request):
+    vehicles = Vehicle_type.objects.filter(co_id=request.session.get('co_id'))
+    if request.method == "POST":
+        loading_point = request.POST.get('loading_point')
+        unloading_point = request.POST.get('unloading_point')
+        rate = request.POST.get('rate')
+        vehicle_type_id = request.POST.get('vehicle_type')
+        vehicle_type = Vehicle_type.objects.get(id=vehicle_type_id)
+
+        exists = LocationMaster.objects.filter(
+            loading_point=loading_point,
+            unloading_point=unloading_point,
+            rate=rate,
+            vehicle_type=vehicle_type
+        ).exists()
+        if exists:
+            return render(request, 'accounts/location_master/location_master.html', {
+                'vehicles': vehicles,
+                'error': 'Location with the same details already exists.'
+            })
+
+        try:
+            LocationMaster.objects.create(
+                company=Table_Companydetailsmaster.objects.get(company_id=request.session.get('co_id')),
+                loading_point=loading_point,
+                unloading_point=unloading_point,
+                rate=rate,
+                vehicle_type=vehicle_type
+            )
+            return render(request, 'accounts/location_master/location_master.html', {
+                'vehicles': vehicles,
+                'success': 'Location created successfully.'
+            })
+        except Exception as e:
+            return render(request, 'accounts/location_master/location_master.html', {
+                'vehicles': vehicles,
+                'error': str(e)
+            })
+
+    return render(request, 'accounts/location_master/location_master.html', {'vehicles': vehicles})
+
+def location_list(request):
+    locations = LocationMaster.objects.filter(company__company_id=request.session.get('co_id'))
+    return render(request, 'accounts/location_master/location_list.html', {'locations': locations})
+
+def delete_location(request, location_id):
+    try:
+        location = LocationMaster.objects.get(id=location_id)
+        location.delete()
+        return redirect('main:location_list')
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+def location_edit(request, location_id):
+    location = LocationMaster.objects.get(id=location_id)
+    vehicles = Vehicle_type.objects.filter(co_id=request.session.get('co_id'))
+    if request.method == "POST":
+        loading_point = request.POST.get('loading_point')
+        unloading_point = request.POST.get('unloading_point')
+        rate = request.POST.get('rate')
+        vehicle_type_id = request.POST.get('vehicle_type')
+        vehicle_type = Vehicle_type.objects.get(id=vehicle_type_id)
+
+        exists = LocationMaster.objects.filter(
+            loading_point=loading_point,
+            unloading_point=unloading_point,
+            rate=rate,
+            vehicle_type=vehicle_type
+        ).exists()
+        if exists:
+            return render(request, 'accounts/location_master/location_edit.html', {
+                'vehicles': vehicles,
+                'location': location,
+                'error': 'Location with the same details already exists.'
+            })
+
+        location.loading_point = loading_point
+        location.unloading_point = unloading_point
+        location.rate = rate
+        location.vehicle_type = vehicle_type
+        location.save()
+
+        return render(request, 'accounts/location_master/location_edit.html', {
+            'location': location,
+            'vehicles': vehicles,
+            'success': 'Location updated successfully.'
+        })
+
+    return render(request, 'accounts/location_master/location_edit.html', {'location': location, 'vehicles': vehicles})
+
+
+# ------------------------------------ VENDOR MASTER ----------------------------------
+
+from .models import VendorMaster
+
+def vendor_master(request):
+    if request.method == "POST":
+        fuel_station = request.POST.get("fuel_station")
+        exists = VendorMaster.objects.filter(fuel_station=fuel_station, company__company_id=request.session.get('co_id')).exists()
+        if exists:
+            return render(request, "accounts/vendor_master/vendor_master.html", {
+                "error": "Vendor with this name already exists."
+            })
+        try:
+            VendorMaster.objects.create(
+                company=Table_Companydetailsmaster.objects.get(company_id=request.session.get('co_id')),
+                fuel_station=fuel_station
+            )
+            return render(request, "accounts/vendor_master/vendor_master.html", {
+                "success": "Vendor created successfully."
+            })
+        except Exception as e:
+            return render(request, "accounts/vendor_master/vendor_master.html", {
+                "error": str(e)
+            })
+    return render(request, "accounts/vendor_master/vendor_master.html")
+
+def vendor_list(request):
+    vendors = VendorMaster.objects.filter(company__company_id=request.session.get('co_id'))
+    return render(request, "accounts/vendor_master/vendor_list.html", {"vendors": vendors})
+
+def edit_vendor(request, vendor_id):
+    fuel_station = VendorMaster.objects.get(id=vendor_id).fuel_station
+    if request.method == "POST":
+        fuel_station = request.POST.get("fuel_station")
+        exists = VendorMaster.objects.filter(fuel_station=fuel_station, company__company_id=request.session.get('co_id')).exists()
+        if exists:
+            return render(request, "accounts/vendor_master/vendor_master.html", {
+                "error": "Vendor with this name already exists.",
+                "fuel_station": fuel_station
+            })
+        try:
+            VendorMaster.objects.filter(id=vendor_id).update(
+                fuel_station=fuel_station
+            )
+            return render(request, "accounts/vendor_master/vendor_master.html", {
+                "success": "Vendor updated successfully."
+            })
+        except Exception as e:
+            return render(request, "accounts/vendor_master/vendor_master.html", {
+                "fuel_station": fuel_station,
+                "error": str(e)
+            })
+    return render(request, "accounts/vendor_master/vendor_master.html", {"fuel_station": fuel_station, "vendor_id": vendor_id})
+
+def delete_vendor(request, vendor_id):
+    try:
+        vendor = VendorMaster.objects.get(id=vendor_id)
+        vendor.delete()
+        return redirect('main:vendor_list')
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})

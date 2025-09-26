@@ -685,4 +685,20 @@ class RateChild(models.Model):
     additional_charge = models.FloatField(null=True, blank=True)
 
 
+# ------------------------------- LOCATION MASTER ----------------------------
 
+class LocationMaster(models.Model):
+    company = models.ForeignKey(Table_Companydetailsmaster, on_delete=models.CASCADE)
+    branch = models.ForeignKey(Branch_master, on_delete=models.CASCADE, null=True, blank=True)
+    loading_point = models.CharField(max_length=200)
+    unloading_point = models.CharField(max_length=200)
+    rate = models.FloatField(null=True, blank=True)
+    vehicle_type = models.ForeignKey(Vehicle_type, on_delete=models.CASCADE, null=True, blank=True)
+
+
+# ------------------------------- VENDOR MASTER ----------------------------
+
+class VendorMaster(models.Model):
+    company = models.ForeignKey(Table_Companydetailsmaster, on_delete=models.CASCADE)
+    branch = models.ForeignKey(Branch_master, on_delete=models.CASCADE, null=True, blank=True)
+    fuel_station = models.CharField(max_length=200)

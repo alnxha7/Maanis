@@ -164,6 +164,17 @@ urlpatterns = [
     path("rate_delete/<int:rate_id>/", views.rate_delete, name="rate_delete"),
 
 
+    path("location_master/", views.location_master, name="location_master"),
+    path("location_list/", views.location_list, name="location_list"),
+    path("delete_location/<int:location_id>/", views.delete_location, name="location_delete"),
+    path("location_edit/<int:location_id>/", views.location_edit, name="location_edit"),
+
+
+    path("vendor_master/", views.vendor_master, name="vendor_master"),
+    path("vendor_list/", views.vendor_list, name="vendor_list"),
+    path("edit_vendor/<int:vendor_id>/", views.edit_vendor, name="edit_vendor"),
+    path("delete_vendor/<int:vendor_id>/", views.delete_vendor, name="delete_vendor"),
+
 
     
 

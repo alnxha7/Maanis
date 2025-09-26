@@ -139,164 +139,6 @@
 }
     </style>
 
-<!--<body >-->
-<!--<div class="page-wrapper">-->
-    <!-- HEADER MOBILE-->
-<!--    <header class="header-mobile d-block d-lg-none">-->
-<!--        <div class="header-mobile__bar">-->
-<!--            <div class="container-fluid">-->
-<!--                <div class="header-mobile-inner">-->
-<!--                    <a class="logo" href="#">LOGIWARE-->
-<!--&lt;!&ndash;                        <img src="images/icon/logo.png" alt="CoolAdmin"/>&ndash;&gt;-->
-<!--                    </a>-->
-<!--                    <button class="hamburger hamburger&#45;&#45;slider" type="button">-->
-<!--                            <span class="hamburger-box">-->
-<!--                                <span class="hamburger-inner"></span>-->
-<!--                            </span>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <nav class="navbar-mobile">-->
-<!--            <div class="container-fluid">-->
-<!--                <ul class="navbar-mobile__list list-unstyled">-->
-<!--&lt;!&ndash;                    <li class="has-sub">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a class="js-arrow" href="{% url 'main:index' %}">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--                     <li class="active has-sub">-->
-<!--                                                <a href="{% url 'main:index' %}">-->
-<!--                                                    <i class="fas fa-tachometer-alt"></i>Home</a>-->
-<!--                                            </li>-->
-
-<!--                    <li class="has-sub">-->
-<!--                        <a class="js-arrow" href="#">-->
-<!--                            <i class="fas fa-chart-bar"></i>Masters</a>-->
-<!--                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">-->
-<!--                            <li>-->
-<!--                                <a href="{% url 'main:brand_create' %}">Brand</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a href="{% url 'main:vehicle_add'%}">Model</a>-->
-<!--                            </li>-->
-<!--                             <li>-->
-<!--                                <a href="{% url 'main:vehicle_type_create'%}">Vehicle type name</a>-->
-<!--                                </li>-->
-<!--                             <li>-->
-<!--                                <a href="{% url 'main:vehicle_master_add'%}">Vehicle  Master</a>-->
-<!--                                </li>-->
-<!--                             <li>-->
-<!--                                <a href="{% url 'main:employee_create'%}">Employee</a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                     <li class="active has-sub">-->
-<!--                        <a class="js-arrow" href="#">-->
-<!--                            <i class="fas fa-chart-bar"></i>Trip sheet</a>-->
-<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
-<!--                            <li>-->
-<!--                                <a href="{% url 'main:trip_create' %}">Trip sheet entery</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a href="{% url 'main:trip_list'%}">Modify trip sheet</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a href="{% url 'main:trip_search_delete'%}">Delete trip sheet</a>-->
-<!--                            </li>-->
-
-<!--                        </ul>-->
-<!--                    </li>-->
-
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </nav>-->
-
-<!--    </header>-->
-    <!-- END HEADER MOBILE-->
-
-    <!-- MENU SIDEBAR-->
-<!--    <aside class="menu-sidebar d-none d-lg-block">-->
-<!--        <div class="logo">-->
-<!--            &lt;!&ndash;                <a href="#">&ndash;&gt;-->
-<!--            &lt;!&ndash;                    <img src="images/icon/logo.png" alt="Cool Admin" />&ndash;&gt;-->
-<!--            &lt;!&ndash;                </a>&ndash;&gt;-->
-<!--            <p> LOGIWARE </p>-->
-<!--        </div>-->
-<!--        <div class="menu-sidebar__content js-scrollbar1" style="background-color: #c83200;">-->
-<!--            <nav class="navbar-sidebar">-->
-<!--                <ul class="list-unstyled navbar__list">-->
-<!--&lt;!&ndash;                    <li class="active has-sub">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a class="js-arrow" href="{% url 'main:index' %}">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--                     <li class="active has-sub">-->
-<!--                                                <a href="{% url 'main:index' %}">-->
-<!--                                                    <i class="fas fa-tachometer-alt"></i>Home</a>-->
-<!--                                            </li>-->
-<!--                    <li class="active has-sub">-->
-<!--                        <a class="js-arrow" href="#">-->
-<!--                            <i class="fas fa-chart-bar"></i>Masters</a>-->
-<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
-<!--                            <li>-->
-<!--                                <a href="{% url 'main:brand_create' %}">Brand</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a href="{% url 'main:vehicle_add'%}">Model</a>-->
-<!--                            </li>-->
-<!--                             <li>-->
-<!--                                <a href="{% url 'main:vehicle_type_create'%}">Vehicle type name</a>-->
-<!--                                </li>-->
-<!--                             <li>-->
-<!--                                <a href="{% url 'main:vehicle_master_add'%}">Vehicle  Master</a>-->
-<!--                                </li>-->
-<!--                             <li>-->
-<!--                                <a href="{% url 'main:employee_create'%}">Employee</a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                     <li class="active has-sub">-->
-<!--                        <a class="js-arrow" href="#">-->
-<!--                            <i class="fas fa-chart-bar"></i>Trip sheet</a>-->
-<!--                        <ul class="list-unstyled navbar__sub-list js-sub-list">-->
-<!--                            <li>-->
-<!--                                <a href="{% url 'main:trip_create' %}">Trip sheet entery</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a href="{% url 'main:trip_list'%}">Modify trip sheet</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a href="{% url 'main:trip_search_delete'%}">Delete trip sheet</a>-->
-<!--                            </li>-->
-
-<!--                        </ul>-->
-<!--                    </li>-->
-
-
-
-<!--                </ul>-->
-<!--            </nav>-->
-
-<!--        </div>-->
-<!--    </aside>-->
-    <!-- END MENU SIDEBAR-->
-
-    <!-- PAGE CONTAINER-->
-<!--    <div class="page-container">-->
-        <!-- HEADER DESKTOP-->
-<!--        <header class="header-desktop">-->
-<!--            <div class="section__content section__content&#45;&#45;p30">-->
-<!--                <div class="container-fluid">-->
-<!--                    <div class="header-wrap">-->
-
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </header>-->
-        <!-- HEADER DESKTOP-->
-
-        <!--Main content-->
  <div class="container_box">
 
  <div class="container">
@@ -319,7 +161,6 @@
     <div class="row">
          <div class=" col-md-3 col-6 ">
         <label>Series</label>
-<!--        <input type="text" name="series" value="{{ first_trip.series|default_if_none:'' }}"{% if is_update %}readonly{% endif %} required ><br>-->
              <select name="series" required {% if is_update %}disabled{% endif %}>
             <option value="">Select series</option>
             {% for voucher  in vouchers  %}
@@ -333,7 +174,6 @@
          </div>
          <div class="col-md-2 col-6">
         <label>Order Number</label>
-<!--        <input type="text" name="entry_number" value="{{ first_trip.entry_number|default_if_none:'' }}" {% if is_update %}readonly{% endif %} required><br>-->
         <input type="text" name="entry_number" id="entry_number" value="{{ first_trip.entry_number|default_if_none:'' }}" readonly required><br>
          </div>
         <div class="col-md-3 col-6">
@@ -418,7 +258,6 @@
                         <input type="text" class="table_input" name="sl_no[]" value="{{ trip.sl_no|default:next_sl_no }}" >
                     </td>
                     <td style="width:25%;">
-<!--                        <input type="text" class="table_input" name="customer_name[]" value="{{ trip.customer_name|default_if_none:'' }}" >-->
                         <select name="customer_name[]" class="table_input" id="customerSelect">
                              <option value="">Select Customer</option>
                                 {% for customer in customers %}
@@ -455,10 +294,8 @@
                 {% endfor %}
 
         {% else %}
-                <!-- Show an empty input row in create mode -->
                 <tr ondblclick="addRow()">
                     <td style="width:4%;"><input type="text" class="table_input" name="sl_no[]" value="{{ next_sl_no }}"></td>
-<!--                    <td><input type="text" class="table_input" name="customer_name[]" value=""></td>-->
                     <td style="width:25%;">    <select name="customer_name[]" class="table_input" id="customerSelect">
                              <option value="">Select Customer</option>
                                 {% for customer in customers %}
@@ -483,11 +320,9 @@
         {% endif %}
                 </tbody>
             </table>
-<!--                <button type="button" class="btn btn-primary" onclick="addRow()">Add Row</button>-->
 
     </div>
         </div>
-<!--<div class="container">-->
 <div class="row">
     <div class="col-md-4">
         <div class="row">
@@ -534,14 +369,10 @@
         </div>
     </div>
 </div>
-<!--</div>-->
-<!--         <div class="col-md-12">-->
         <div class="row">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <h4>Expense details</h4>
         </div>
-<!--        </div>-->
-<!--<div class="container-fluid">-->
 <div class="row">
     <div class="col-md-4">
 
@@ -697,26 +528,6 @@
 </div>
 </div>
 
-<!-- </div>-->
-<!--</div>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
-<!--<script>-->
-<!--    document.addEventListener('DOMContentLoaded', function () {-->
-<!--        {% if messages %}-->
-<!--            {% for message in messages %}-->
-<!--                {% if message.tags == 'success' %}-->
-<!--                    Swal.fire({-->
-<!--                        icon: 'success',-->
-<!--                        title: 'Success',-->
-<!--                        text: '{{ message }}',-->
-<!--                        showConfirmButton: false,-->
-<!--                        timer: 3000-->
-<!--                    });-->
-<!--                {% endif %}-->
-<!--            {% endfor %}-->
-<!--        {% endif %}-->
-<!--    });-->
-<!--</script>-->
 <script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
 <script>
     $(document).ready(function () {

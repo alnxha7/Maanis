@@ -78,6 +78,7 @@ urlpatterns = [
 
     path('get-next-entry-number/', views.get_next_entry_number, name='get_next_entry_number'),
     path('get_rate/', views.get_rate, name='get_rate'),
+    path('get_fixed_rate/', views.get_fixed_rate, name='get_fixed_rate'),
 
 
     # path('trips/delete/<int:pk>/', views.trip_delete, name='trip_delete'),

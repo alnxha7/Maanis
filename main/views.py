@@ -410,6 +410,8 @@ def vehicle_master_list(request):
     else:
         vehicle_masters=Vehicle_master.objects.filter(co_id=co_id,branch_id=branch)
     return render(request,'vehicle_master/vehicle_master_list.html',{'vehicle_masters':vehicle_masters})
+
+
 def vehicle_master_add(request):
     co_id = request.session.get('co_id')
     branch = request.session.get('branch')
@@ -613,7 +615,8 @@ def vehicle_master_update(request, pk):
         'brands': brands,
         'vehicles': vehicles,
         'vehicle_types': vehicle_types,
-        'drivers': drivers
+        'drivers': drivers,
+        'accounts': accounts
     })
 # Delete a vehicle master delete
 def vehicle_master_delete(request, pk):
@@ -950,10 +953,12 @@ def get_rate(request):
                 company = Table_Companydetailsmaster.objects.get(company_id=co_id)
 
                 child = RateChild.objects.get(
-                    vehicle=vehicle.registration_number,
+                    vehicle=vehicle.vehicle_type.vehicle_name,
+                    type='Km Wise',
                     master__customer_name=customer.head,
                     master__company=company
                 )
+                print("child rate:",child.rate)
                 response_data["rate"] = child.rate
 
             return JsonResponse(response_data)
@@ -964,6 +969,33 @@ def get_rate(request):
         print("Error:", e)
         return JsonResponse({"success": False, "message": str(e)})
 
+def get_fixed_rate(request):
+    vehicle_id = request.GET.get("vehicle_id")
+    customer_id = request.GET.get("customer_id")
+    loading_point = request.GET.get("loading_point")
+    unloading_point = request.GET.get("unloading_point")
+    co_id = request.session.get("co_id")
+
+    customer = Table_Accountsmaster.objects.filter(id=customer_id).first()
+
+    print("DEBUG => vehicle_id:", vehicle_id,
+      "customer:", customer.head,
+      "loading_point:", loading_point,
+      "unloading_point:", unloading_point,
+      "co_id:", co_id)
+
+    try:
+        master = LocationMaster.objects.filter(company__company_id=co_id, customer=customer.head, loading_point=loading_point, 
+                                      unloading_point=unloading_point, vehicle_type=vehicle_id).first()
+        if master:
+            rate = master.rate
+            response_data = {"success": True, "rate": rate}
+        else:
+            response_data = {"success": False, "message": "No matching fixed rate found"}
+        return JsonResponse(response_data)    
+    except Exception as e:
+        print("Error:", e)
+        return JsonResponse({"success": False, "message": str(e)})
 
 
 # function
@@ -6611,7 +6643,7 @@ from .models import RateMaster, RateChild
 
 def rate_master(request):
     customers = Table_Accountsmaster.objects.filter(group='SUNDRY DEBTORS', user__company__company_id=request.session.get('co_id'))
-    vehicles = Vehicle_master.objects.filter(co_id=request.session.get('co_id'))
+    vehicles = Vehicle_type.objects.filter(co_id=request.session.get('co_id'))
 
     if request.method == 'POST':
         company = Table_Companydetailsmaster.objects.get(company_id=request.session.get('co_id'))
@@ -6681,7 +6713,9 @@ from .models import LocationMaster
 
 def location_master(request):
     vehicles = Vehicle_type.objects.filter(co_id=request.session.get('co_id'))
+    customers = Table_Accountsmaster.objects.filter(group='SUNDRY DEBTORS', user__company__company_id=request.session.get('co_id'))
     if request.method == "POST":
+        customer = request.POST.get('customer')
         loading_point = request.POST.get('loading_point')
         unloading_point = request.POST.get('unloading_point')
         rate = request.POST.get('rate')
@@ -6689,6 +6723,7 @@ def location_master(request):
         vehicle_type = Vehicle_type.objects.get(id=vehicle_type_id)
 
         exists = LocationMaster.objects.filter(
+            customer=customer,
             loading_point=loading_point,
             unloading_point=unloading_point,
             rate=rate,
@@ -6703,6 +6738,7 @@ def location_master(request):
         try:
             LocationMaster.objects.create(
                 company=Table_Companydetailsmaster.objects.get(company_id=request.session.get('co_id')),
+                customer=customer,
                 loading_point=loading_point,
                 unloading_point=unloading_point,
                 rate=rate,
@@ -6710,15 +6746,17 @@ def location_master(request):
             )
             return render(request, 'accounts/location_master/location_master.html', {
                 'vehicles': vehicles,
+                'customers': customers,
                 'success': 'Location created successfully.'
             })
         except Exception as e:
             return render(request, 'accounts/location_master/location_master.html', {
                 'vehicles': vehicles,
+                'customers': customers,
                 'error': str(e)
             })
 
-    return render(request, 'accounts/location_master/location_master.html', {'vehicles': vehicles})
+    return render(request, 'accounts/location_master/location_master.html', {'vehicles': vehicles, 'customers': customers})
 
 def location_list(request):
     locations = LocationMaster.objects.filter(company__company_id=request.session.get('co_id'))
@@ -6735,7 +6773,9 @@ def delete_location(request, location_id):
 def location_edit(request, location_id):
     location = LocationMaster.objects.get(id=location_id)
     vehicles = Vehicle_type.objects.filter(co_id=request.session.get('co_id'))
+    customers = Table_Accountsmaster.objects.filter(group='SUNDRY DEBTORS', user__company__company_id=request.session.get('co_id'))
     if request.method == "POST":
+        customer = request.POST.get('customer')
         loading_point = request.POST.get('loading_point')
         unloading_point = request.POST.get('unloading_point')
         rate = request.POST.get('rate')
@@ -6743,6 +6783,7 @@ def location_edit(request, location_id):
         vehicle_type = Vehicle_type.objects.get(id=vehicle_type_id)
 
         exists = LocationMaster.objects.filter(
+            customer=customer,
             loading_point=loading_point,
             unloading_point=unloading_point,
             rate=rate,
@@ -6751,10 +6792,12 @@ def location_edit(request, location_id):
         if exists:
             return render(request, 'accounts/location_master/location_edit.html', {
                 'vehicles': vehicles,
+                'customers': customers,
                 'location': location,
                 'error': 'Location with the same details already exists.'
             })
 
+        location.customer = customer
         location.loading_point = loading_point
         location.unloading_point = unloading_point
         location.rate = rate
@@ -6763,11 +6806,12 @@ def location_edit(request, location_id):
 
         return render(request, 'accounts/location_master/location_edit.html', {
             'location': location,
+            'customers': customers,
             'vehicles': vehicles,
             'success': 'Location updated successfully.'
         })
 
-    return render(request, 'accounts/location_master/location_edit.html', {'location': location, 'vehicles': vehicles})
+    return render(request, 'accounts/location_master/location_edit.html', {'location': location, 'vehicles': vehicles, 'customers': customers})
 
 
 # ------------------------------------ VENDOR MASTER ----------------------------------

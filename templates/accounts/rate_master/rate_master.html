@@ -460,7 +460,7 @@
                                     <select class="table_data" name="vehicle[]" required>
                                         <option value="">--- select vehicle ---</option>
                                         {% for vehicle in vehicles %}
-                                            <option value="{{ vehicle.registration_number }}">{{ vehicle.vehicle_type.vehicle_name }}</option>
+                                            <option value="{{ vehicle.vehicle_name }}">{{ vehicle.vehicle_name }}</option>
                                         {% endfor %}
                                     </select>
                                 </td>
@@ -551,7 +551,7 @@
 {% endif %}
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const tableBody = document.querySelector('#billingTable tbody');
     if (!tableBody) return;
 
@@ -573,7 +573,7 @@
 
         if (typeSelect.value === "Fixed") {
             kmInput.style.display = "block";
-            addChargeInput.style.display = "block";
+            addChargeInput.style.display = "none";
             fixedRate.style.display = "block";
 
             rateInput.value = "none";
@@ -581,9 +581,9 @@
             rateInput.required = false;
 
             kmInput.required = true;
-            addChargeInput.required = true;
+            addChargeInput.required = false;
             fixedRate.required = true;
-        } else {
+        } else if (typeSelect.value === "Km Wise") {
             kmInput.style.display = "none";
             kmInput.value = "";
 
@@ -598,6 +598,21 @@
             kmInput.required = false;
             addChargeInput.required = false;
             fixedRate.required = false; 
+        } else if (typeSelect.value === "Monthly") {
+            kmInput.style.display = "block";
+            kmInput.value = "";
+
+            fixedRate.style.display = "block";
+            fixedRate.value = "";
+
+            addChargeInput.style.display = "block";
+            rateInput.style.display = "none";
+            rateInput.value = "";
+
+            kmInput.required = true;
+            rateInput.required = false;
+            fixedRate.required = true; 
+            addChargeInput.required = true;
         }
     }
 
@@ -609,7 +624,7 @@
                 <select class="table_data" name="vehicle[]" required>
                     <option value="">--- select vehicle ---</option>
                     {% for vehicle in vehicles %}
-                        <option value="{{ vehicle.registration_number }}">{{ vehicle.registration_number }}</option>
+                        <option value="{{ vehicle.vehicle_name }}">{{ vehicle.vehicle_name }}</option>
                     {% endfor %}
                 </select>
             </td>
@@ -617,6 +632,7 @@
                 <select class="table_data type-select" name="type[]" required>
                     <option value="Km Wise">Km Wise</option>
                     <option value="Fixed">Fixed</option>
+                    <option value="Monthly">Monthly</option>
                 </select>
             </td>
             <td>

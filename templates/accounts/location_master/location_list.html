@@ -345,7 +345,7 @@
        
         <div class="container">
 
-<h2>TAX MASTER</h2>
+<h2>LOCATION MASTER</h2>
     <div class="container">
         <!-- 🔹 Table Section -->
         <div class="table-container">
@@ -353,6 +353,7 @@
                 <thead>
                     <tr>
                         <th style="text-align: center;">Sl.no</th>
+                        <th style="text-align: center;">Customer</th>
                         <th style="text-align: center;">Loading Point</th>
                         <th style="text-align: center;">Unloading Point</th>
                         <th style="text-align: center;">Rate</th>
@@ -366,6 +367,7 @@
                         {% for location in locations %}
                                 <tr>
                                     <td style="text-align: center;">{{ forloop.counter }}</td>
+                                    <td style="text-align: center;">{{ location.customer }}</td>
                                     <td style="text-align: center;">{{ location.loading_point }}</td>
                                     <td style="text-align: center;">{{ location.unloading_point }}</td>
                                     <td style="text-align: center;">{{ location.rate }}</td>

@@ -320,7 +320,7 @@
                             </select>
                     </td>
                     <td style="width:19%;">
-                        <select name="loading_point[]" class="table_input" id="customerSelect">
+                        <select name="loading_point[]" class="table_input loadingPoint" id="customerSelect">
                              <option value="">Select Loading Point</option>
                                 {% for loading_point in loading_points %}
                                  <option value="{{ loading_point }}" {% if trip.loading_point == loading_point %}selected{% endif %}>
@@ -330,7 +330,7 @@
                         </select>
                     </td>
                     <td style="width:19%;">
-                        <select name="unloading_point[]" class="table_input" id="customerSelect">
+                        <select name="unloading_point[]" class="table_input unloadingPoint" id="customerSelect">
                              <option value="">Select Unloading Point</option>
                                 {% for unloading_point in unloading_points %}
                                  <option value="{{ unloading_point }}" {% if trip.unloading_point == unloading_point %}selected{% endif %}>
@@ -732,8 +732,35 @@ document.addEventListener("DOMContentLoaded", function () {
         const customerId = customerSelect.value;
         const rateType = rateSelect.value;
 
+        function getFixedRate() {
+            const loadingInput = document.querySelector(".loadingPoint");
+            const unloadingInput = document.querySelector(".unloadingPoint");
+            const fixedRateInput = document.getElementById("fixed_charge_total")
+
+            const vehicleTypeValue = vehicleType.value;
+            const customerId = customerSelect.value;
+            const loadingPoint = loadingInput.value;
+            const unloadingPoint = unloadingInput.value;
+            const fixedRateValue = fixedRateInput.value;
+
+            fetch(`/get_fixed_rate/?vehicle_id=${vehicleTypeValue}&customer_id=${customerId}&loading_point=${loadingPoint}&unloading_point=${unloadingPoint}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        fixedRateInput.value = data.rate;
+                        console.log(data.rate)
+                    }
+                })
+                .catch(err => console.error("Error fetching fixed rate:", err));
+        }
+
+        document.querySelector(".loadingPoint").addEventListener("change", getFixedRate);
+        document.querySelector(".unloadingPoint").addEventListener("change", getFixedRate);
+        document.getElementById("vehicle_type").addEventListener("change", getFixedRate);
+        document.getElementById("customerSelect").addEventListener("change", getFixedRate);
+
         if (vehicleId) {
-            fetch(`/demo.com/get_rate/?vehicle_id=${vehicleId}&customer_id=${customerId}`)
+            fetch(`/get_rate/?vehicle_id=${vehicleId}&customer_id=${customerId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -741,22 +768,26 @@ document.addEventListener("DOMContentLoaded", function () {
                             vehicleType.value = data.vehicle_type_id;
                             if (rateType === "Fixed") {
                                 kmRateInput.value = 0;
+                                getFixedRate()
                             }
                         } else {
                             vehicleType.value = "";
                             if (rateType === "Fixed") {
                                 kmRateInput.value = 0;
+                                getFixedRate()
                             }
                         }
                         if (data.rate) {
                             kmRateInput.value = data.rate;
                             if (rateType === "Fixed") {
                                 kmRateInput.value = 0;
+                                getFixedRate()
                             }
                         } else {
                             kmRateInput.value = 0;
                             if (rateType === "Fixed") {
                                 kmRateInput.value = 0;
+                                getFixedRate()
                             }
                         }
                     }
@@ -767,6 +798,30 @@ document.addEventListener("DOMContentLoaded", function () {
                     vehicleType.value = "";
                 });
         }
+    }
+
+    function getFixedRate() {
+        const loadingInput = document.querySelector(".loadingPoint");
+        const unloadingInput = document.querySelector(".unloadingPoint");
+        const fixedRateInput = document.getElementById("fixed_charge_total")
+
+        const vehicleTypeValue = vehicleType.value;
+        const customerId = customerSelect.value;
+        const loadingPoint = loadingInput.value;
+        const unloadingPoint = unloadingInput.value;
+        console.log(unloadingPoint)
+        const fixedRateValue = fixedRateInput.value;
+        console.log(unloadingPoint)
+
+        fetch(`/get_fixed_rate/?vehicle_id=${vehicleTypeValue}&customer_id=${customerId}&loading_point=${loadingPoint}&unloading_point=${unloadingPoint}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    fixedRateInput.value = data.rate;
+                    console.log(data.rate)
+                }
+            })
+            .catch(err => console.error("Error fetching fixed rate:", err));
     }
 
 
